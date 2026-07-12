@@ -13,7 +13,6 @@ export const MoviesList = () => {
     useInfiniteQuery(getMoviesDiscoverOptions(genre));
 
   const skeletonsArray = [...Array(20)];
-
   useEffect(() => {
     if (inView && hasNextPage && !isFetchingNextPage) {
       fetchNextPage();
