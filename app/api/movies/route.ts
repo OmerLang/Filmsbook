@@ -31,7 +31,7 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const page = searchParams.get("page");
   const genreString: string = searchParams.get("genre") ?? "";
-  if (genreString === "all") {
+  if (genreString === "discover") {
     api = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=popularity.desc`;
   } else {
     const genreNumber = validGenre(genreString);

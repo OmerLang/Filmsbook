@@ -4,11 +4,12 @@ import { MovieItemSkeleton } from "../MovieItem/MovieItemSkeleton";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useInView } from "react-intersection-observer";
 import { getMoviesDiscoverOptions } from "@/utills/query_options/options";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useGenre } from "@/app/providers";
 
 export const MoviesList = () => {
   const { ref, inView } = useInView();
-  const [genre, setGenre] = useState("all");
+  const { genre } = useGenre();
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useInfiniteQuery(getMoviesDiscoverOptions(genre));
 

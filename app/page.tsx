@@ -3,6 +3,7 @@ import { getMoviesDiscoverOptions } from "@/utills/query_options/options";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import { MoviesList } from "@/components/MoviesList/MoviesList";
 import { MoviesDiscoverResponse } from "@/types/movies";
+import { GenreTitle } from "@/components/GenreTitle/GenreTitle";
 
 export default async function Home() {
   const queryClient = getQueryClient();
@@ -30,11 +31,14 @@ export default async function Home() {
 
   return (
     <>
-      <div className="grid auto-rows-fr m-5 grid-cols-[repeat(auto-fit,minmax(145px,1fr))] sm:grid-cols-[repeat(auto-fit,minmax(162px,1fr))] md:grid-cols-[repeat(auto-fit,minmax(152px,1fr))] lg:grid-cols-[repeat(auto-fill,minmax(182px,1fr))] gap-4">
-        <HydrationBoundary state={dehydrate(queryClient)}>
-          <MoviesList />
-        </HydrationBoundary>
-      </div>
+      <HydrationBoundary state={dehydrate(queryClient)}>
+        <div className="grid grid-cols-1 m-5 gap-5">
+          <GenreTitle />
+          <div className="grid auto-rows-fr grid-cols-[repeat(auto-fit,minmax(145px,1fr))] sm:grid-cols-[repeat(auto-fit,minmax(162px,1fr))] md:grid-cols-[repeat(auto-fit,minmax(152px,1fr))] lg:grid-cols-[repeat(auto-fill,minmax(182px,1fr))] gap-4">
+            <MoviesList />
+          </div>
+        </div>
+      </HydrationBoundary>
     </>
   );
 }

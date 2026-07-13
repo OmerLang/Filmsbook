@@ -1,7 +1,7 @@
 import { infiniteQueryOptions } from "@tanstack/react-query";
 import { MoviesDiscoverResponse } from "@/types/movies";
 
-export const getMoviesDiscoverOptions = (genre: string = "all") => {
+export const getMoviesDiscoverOptions = (genre: string = "discover") => {
   return infiniteQueryOptions({
     queryKey: ["movies_discover", genre],
     queryFn: async ({ pageParam }): Promise<MoviesDiscoverResponse> => {
