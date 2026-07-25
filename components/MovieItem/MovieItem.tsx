@@ -10,14 +10,17 @@ export const MovieItem = ({ movie }: MovieItemProps) => {
   const release_year = movie.release_date.slice(0, 4);
 
   return (
-    <div className="group flex flex-col rounded-xl overflow-hidden relative border border-gray-500 aspect-[2/3] w-full">
-      <Image
-        src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-        alt={movie.title}
-        fill
-        sizes="(max-width: 640px) 145px, (max-width: 768px 162px, 182px"
-        className="object-cover"
-      />
+    <div className="group flex flex-col rounded-xl overflow-hidden relative border border-gray-500">
+      <div className="aspect-[2/3] w-full relative">
+        <Image
+          src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+          alt={movie.title}
+          fill
+          sizes="(max-width: 640px) 145px, (max-width: 768px) 162px, 182px"
+          className="object-cover"
+        />
+      </div>
+
       <div className="absolute inset-0 group-hover:bg-black/60 transition duration-300 z-10 " />
       <div className="absolute flex flex-col justify-end p-2 items-start inset-0 text-white font-bold text-2xl opacity-100 group-hover:opacity-100 transition-opacity duration-300 z-20">
         <div className="flex flex-col translate-y-100 group-hover:-translate-y-0 transition-transform duration-150">

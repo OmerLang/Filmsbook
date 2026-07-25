@@ -16,7 +16,7 @@ const GenreContext = createContext<GenreContextType>({
 });
 
 export default function Providers({ children }: { children: React.ReactNode }) {
-  const [genres, setGenres] = useState(["all"]);
+  const [genres, setGenres] = useState<string[]>(["all"]);
   const changeGenre = (genres: string[]): void => setGenres(genres);
   const queryClient = getQueryClient();
   return (

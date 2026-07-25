@@ -10,22 +10,26 @@ import { useGenre } from "@/app/providers";
 export const MoviesList = () => {
   const { ref, inView } = useInView();
   const { genres } = useGenre();
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } =
     useInfiniteQuery(getMoviesDiscoverOptions(genres));
 
   useEffect(() => {
-    if (inView && hasNextPage && !isFetchingNextPage) {
+    if (inView && hasNextPage && !isFetchingNextPage && !isFetching) {
       fetchNextPage();
     }
-  }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
+  }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage, isFetching]);
+
   return (
     <>
-      {data?.pages.map((page) =>
-        page.results.map((movie) => <MovieItem movie={movie} key={movie.id} />),
+      {data?.pages.map((page, pageIndex) =>
+        page.results.map((movie) => (
+          <MovieItem movie={movie} key={`${pageIndex}-${movie.id}`} />
+        )),
       )}
+      {hasNextPage && <MovieItemSkeleton ref={ref} />}
       {hasNextPage &&
-        [...Array(20)].map((_, index) => (
-          <MovieItemSkeleton key={index} ref={index === 0 ? ref : null} />
+        [...Array(19)].map((_, index) => (
+          <MovieItemSkeleton key={`skeleton-${index}`} />
         ))}
     </>
   );

@@ -45,9 +45,5 @@ export async function GET(request: Request) {
     );
   }
   const data = await res.json();
-  return NextResponse.json(data, {
-    headers: {
-      "Cache-Control": "public, s-maxage=300, stale-while-revalidate=600",
-    },
-  });
+  return NextResponse.json(data);
 }
