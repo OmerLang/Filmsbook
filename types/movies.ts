@@ -1,3 +1,8 @@
+export type Genre = {
+  label: string;
+  value: string;
+};
+
 export type MovieBasics = {
   id: number;
   poster_path: string;

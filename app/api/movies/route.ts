@@ -1,51 +1,42 @@
 import { NextResponse } from "next/server";
+import { GENRE_MAP } from "@/utills/movies_genres/movies_genres";
 
-const GENRE_MAP: Record<string, number> = {
-  action: 28,
-  adventure: 12,
-  animation: 16,
-  comedy: 35,
-  crime: 80,
-  documentary: 99,
-  drama: 18,
-  family: 10751,
-  fantasy: 14,
-  history: 36,
-  horror: 27,
-  music: 10402,
-  mystery: 9648,
-  romance: 10749,
-  sciencefiction: 878,
-  thriller: 53,
-  war: 10752,
-  western: 37,
-};
-
-const validGenre = (genre: string): number => {
-  const normalizedGenre = genre.toLowerCase();
-  return GENRE_MAP[normalizedGenre];
+const convertGenres = (genres: string): string => {
+  const normalizedGenres: string[] = genres
+    .split(",")
+    .map((genre) => genre.trim().toLowerCase())
+    .filter(Boolean);
+  const genresNumbers: string[] = normalizedGenres
+    .filter((genre) => genre !== "all" && genre in GENRE_MAP)
+    .map((genre) => String(GENRE_MAP[genre]));
+  return genresNumbers.join(",");
 };
 
 export async function GET(request: Request) {
   let api = "";
   const { searchParams } = new URL(request.url);
-  const page = searchParams.get("page");
-  const genreString: string = searchParams.get("genre") ?? "";
-  if (genreString === "discover") {
-    api = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=popularity.desc`;
-  } else {
-    const genreNumber = validGenre(genreString);
-    if (!genreNumber) {
-      return NextResponse.json({ error: "Invalid genre" }, { status: 401 });
-    }
-    api = `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=popularity.desc&with_genres=${genreNumber}`;
+  const page = searchParams.get("page") ?? "1";
+  const rawGenres: string = searchParams.get("genres") ?? "all";
+  const genresList: string = convertGenres(rawGenres);
+  const params = new URLSearchParams({
+    include_adult: "false",
+    include_video: "false",
+    language: "en-US",
+    page: page,
+    sort_by: "popularity.desc",
+  });
+  if (genresList.length > 0) {
+    params.append("with_genres", genresList);
   }
+  api = `https://api.themoviedb.org/3/discover/movie?${params.toString()}`;
+
   const res = await fetch(api, {
     method: "GET",
     headers: {
       accept: "application/json",
       Authorization: process.env.TMDB_KEY ?? "",
     },
+    cache: "no-store",
   });
   if (!res.ok) {
     return NextResponse.json(
@@ -54,5 +45,9 @@ export async function GET(request: Request) {
     );
   }
   const data = await res.json();
-  return NextResponse.json(data);
+  return NextResponse.json(data, {
+    headers: {
+      "Cache-Control": "public, s-maxage=300, stale-while-revalidate=600",
+    },
+  });
 }

@@ -9,11 +9,10 @@ import { useGenre } from "@/app/providers";
 
 export const MoviesList = () => {
   const { ref, inView } = useInView();
-  const { genre } = useGenre();
+  const { genres } = useGenre();
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useInfiniteQuery(getMoviesDiscoverOptions(genre));
+    useInfiniteQuery(getMoviesDiscoverOptions(genres));
 
-  const skeletonsArray = [...Array(20)];
   useEffect(() => {
     if (inView && hasNextPage && !isFetchingNextPage) {
       fetchNextPage();
@@ -24,9 +23,10 @@ export const MoviesList = () => {
       {data?.pages.map((page) =>
         page.results.map((movie) => <MovieItem movie={movie} key={movie.id} />),
       )}
-      {skeletonsArray.map((_, index) => (
-        <MovieItemSkeleton key={index} ref={index === 0 ? ref : null} />
-      ))}
+      {hasNextPage &&
+        [...Array(20)].map((_, index) => (
+          <MovieItemSkeleton key={index} ref={index === 0 ? ref : null} />
+        ))}
     </>
   );
 };

@@ -6,22 +6,22 @@ import { useState } from "react";
 import * as React from "react";
 
 export type GenreContextType = {
-  genre: string;
-  changeGenre: (genre: string) => void;
+  genres: string[];
+  changeGenre: (genres: string[]) => void;
 };
 
 const GenreContext = createContext<GenreContextType>({
-  genre: "discover",
+  genres: ["all"],
   changeGenre: () => {},
 });
 
 export default function Providers({ children }: { children: React.ReactNode }) {
-  const [genre, setGenre] = useState("discover");
-  const changeGenre = (genre: string): void => setGenre(genre);
+  const [genres, setGenres] = useState(["all"]);
+  const changeGenre = (genres: string[]): void => setGenres(genres);
   const queryClient = getQueryClient();
   return (
     <QueryClientProvider client={queryClient}>
-      <GenreContext.Provider value={{ genre, changeGenre }}>
+      <GenreContext.Provider value={{ genres, changeGenre }}>
         {children}
       </GenreContext.Provider>
     </QueryClientProvider>

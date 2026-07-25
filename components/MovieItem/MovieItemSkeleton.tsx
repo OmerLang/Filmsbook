@@ -1,5 +1,4 @@
 "use client";
-import { useIsFetching } from "@tanstack/react-query";
 import { forwardRef } from "react";
 
 export const MovieItemSkeleton = forwardRef<HTMLDivElement, {}>(

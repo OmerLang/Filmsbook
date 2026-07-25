@@ -35,7 +35,7 @@ export const Navbar = () => {
 
   return (
     <header
-      className={`sticky w-5/6 mx-auto z-50 border-1 border-slate-200 bg-sky-950/90 backdrop-blur-sm transition-all duration-300 ease-in-out
+      className={`sticky w-5/6 mx-auto z-50 border-1 border-slate-600 bg-sky-950/90 backdrop-blur-sm transition-all duration-300 ease-in-out
         ${isScrolled ? "top-4 rounded-4xl" : "top-0 rounded-b-4xl border-t-0"}
       `}
     >
