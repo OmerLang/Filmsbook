@@ -20,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${roboto.className} h-full antialiased`}>
-      <body className="min-h-full flex flex-col bg-indigo-900">
+      <body className="min-h-full flex flex-col bg-slate-900">
         <Providers>
           <Navbar />
           {children}

@@ -2,8 +2,8 @@
 
 export const GenreTitle = () => {
   return (
-    <div className="relative text-6xl text-transparent font-black ">
-      <h2 className="inline bg-linear-to-r from-sky-400 to-sky-500 bg-clip-text">
+    <div className="relative -mb-1 text-6xl lg:text-7xl text-transparent font-black">
+      <h2 className="inline-block bg-linear-to-r from-indigo-400 to-sky-500 bg-clip-text">
         Discover
       </h2>
     </div>

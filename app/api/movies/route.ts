@@ -29,6 +29,7 @@ export async function GET(request: Request) {
     params.append("with_genres", genresList);
   }
   api = `https://api.themoviedb.org/3/discover/movie?${params.toString()}`;
+  console.log("api:", api);
 
   const res = await fetch(api, {
     method: "GET",

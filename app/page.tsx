@@ -42,9 +42,11 @@ export default async function Home() {
     <>
       <HydrationBoundary state={dehydrate(queryClient)}>
         <div className="grid grid-cols-1 m-5 gap-5">
-          <div className="flex">
+          <div className="flex flex-col justify-between gap-5">
             <GenreTitle />
-            <MultiSelectBtn />
+            <div className="max-w-100">
+              <MultiSelectBtn />
+            </div>
           </div>
           <div className="grid auto-rows-fr grid-cols-[repeat(auto-fit,minmax(145px,1fr))] sm:grid-cols-[repeat(auto-fit,minmax(162px,1fr))] md:grid-cols-[repeat(auto-fit,minmax(152px,1fr))] lg:grid-cols-[repeat(auto-fill,minmax(182px,1fr))] gap-4">
             <MoviesList />

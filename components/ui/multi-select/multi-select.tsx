@@ -58,7 +58,7 @@ export default function MultiSelect({
         <PopoverTrigger
           className={cn(
             "flex h-12 w-full transition-all items-center justify-between rounded-md border border-input bg-background text-sm",
-            "focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
+            "focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-0",
             "disabled:cursor-not-allowed disabled:opacity-50",
             "hover:bg-accent hover:text-accent-foreground",
           )}
@@ -74,9 +74,7 @@ export default function MultiSelect({
               }}
             >
               {value.length === 0 ? (
-                <span className="text-muted-foreground truncate">
-                  {placeholder}
-                </span>
+                <span className="text-gray-300 truncate">{placeholder}</span>
               ) : (
                 value.map((item) => {
                   const option = options?.find((opt) => opt.value === item);
@@ -141,7 +139,7 @@ export default function MultiSelect({
                 {options?.map((option) => (
                   <CommandItem
                     key={option.value}
-                    value={option.value}
+                    value={option.label}
                     onSelect={() => handleSelect(option.value)}
                   >
                     <Check

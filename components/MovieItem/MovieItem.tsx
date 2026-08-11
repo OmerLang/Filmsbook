@@ -13,9 +13,10 @@ export const MovieItem = ({ movie }: MovieItemProps) => {
     <div className="group flex flex-col rounded-xl overflow-hidden relative border border-gray-500">
       <div className="aspect-[2/3] w-full relative">
         <Image
-          src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+          src={`https://image.tmdb.org/t/p/w185${movie.poster_path}`}
           alt={movie.title}
           fill
+          loading="eager"
           sizes="(max-width: 640px) 145px, (max-width: 768px) 162px, 182px"
           className="object-cover"
         />
