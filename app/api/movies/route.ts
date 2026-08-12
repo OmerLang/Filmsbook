@@ -16,15 +16,20 @@ export async function GET(request: Request) {
   let api = "";
   const { searchParams } = new URL(request.url);
   const page = searchParams.get("page") ?? "1";
-  const rawGenres: string = searchParams.get("genres") ?? "all";
+  const rawGenres: string = searchParams.get("genres") ?? "";
   const genresList: string = convertGenres(rawGenres);
+  const search = searchParams.get("search") ?? "";
+  const sortBy = searchParams.get("sortBy");
   const params = new URLSearchParams({
     include_adult: "false",
     include_video: "false",
     language: "en-US",
     page: page,
-    sort_by: "popularity.desc",
+    sort_by: sortBy || "popularity.desc",
   });
+  if (search?.length > 0) {
+    params.append("with_keywords", search);
+  }
   if (genresList.length > 0) {
     params.append("with_genres", genresList);
   }

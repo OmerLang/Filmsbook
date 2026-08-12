@@ -1,14 +1,24 @@
 import { infiniteQueryOptions } from "@tanstack/react-query";
 import { MoviesDiscoverResponse } from "@/types/movies";
+import { Filters } from "@/types/movies";
+import { movieKeys } from "@/lib/query-keys";
 
-export const getMoviesDiscoverOptions = (genres: string[] = ["all"]) => {
-  const genreString = [...genres].sort().join(",");
+export const getMoviesDiscoverOptions = (
+  filters: Filters = { genres: [], search: "", sortBy: "popularity.desc" },
+) => {
+  const key = movieKeys.infiniteList(filters);
+  const [, filtersFromKey] = key;
+
+  const genreString = [...filtersFromKey.genres].join(",");
+
   return infiniteQueryOptions({
-    queryKey: ["movies_discover", genreString],
+    queryKey: key,
     queryFn: async ({ pageParam }): Promise<MoviesDiscoverResponse> => {
       const params = new URLSearchParams({
         page: String(pageParam),
         genres: genreString,
+        search: filters.search,
+        sortBy: filters.sortBy,
       });
       const res = await fetch(`/api/movies?${params.toString()}`);
       if (!res.ok) throw new Error("Failed to fetch movies from local api");

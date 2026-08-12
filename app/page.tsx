@@ -4,13 +4,14 @@ import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import { MoviesList } from "@/components/MoviesList/MoviesList";
 import { MoviesDiscoverResponse } from "@/types/movies";
 import { GenreTitle } from "@/components/GenreTitle/GenreTitle";
-import { MultiSelectBtn } from "@/components/MultiSelectBtn/MultiSelectBtn";
+import { GenresMultiSelectBtn } from "@/components/GenresMultiSelectBtn/GenresMultiSelectBtn";
+import { SortByBtn } from "@/components/SortByBtn/SortByBtn";
 
 export default async function Home() {
   const queryClient = getQueryClient();
   await queryClient.prefetchInfiniteQuery({
     // Fetching the first 2 pages
-    ...getMoviesDiscoverOptions(["all"]),
+    ...getMoviesDiscoverOptions(),
     queryFn: async ({ pageParam }): Promise<MoviesDiscoverResponse> => {
       const params = new URLSearchParams({
         include_adult: "false",
@@ -42,10 +43,11 @@ export default async function Home() {
     <>
       <HydrationBoundary state={dehydrate(queryClient)}>
         <div className="grid grid-cols-1 m-5 gap-5">
-          <div className="flex flex-col justify-between gap-5">
+          <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
             <GenreTitle />
-            <div className="max-w-100">
-              <MultiSelectBtn />
+            <div className="flex flex-col gap-3 sm:min-w-100 sm:flex-row lg:min-w-150 ">
+              <SortByBtn className="h-11" />
+              <GenresMultiSelectBtn />
             </div>
           </div>
           <div className="grid auto-rows-fr grid-cols-[repeat(auto-fit,minmax(145px,1fr))] sm:grid-cols-[repeat(auto-fit,minmax(162px,1fr))] md:grid-cols-[repeat(auto-fit,minmax(152px,1fr))] lg:grid-cols-[repeat(auto-fill,minmax(182px,1fr))] gap-4">

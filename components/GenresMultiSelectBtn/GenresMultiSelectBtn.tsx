@@ -2,9 +2,9 @@
 import MultiSelect from "../ui/multi-select/multi-select";
 import { useState } from "react";
 import { GENRE_MAP } from "@/utills/movies_genres/movies_genres";
-import { useGenre } from "@/app/providers";
+import { useFilters } from "@/app/providers";
 
-export const MultiSelectBtn = () => {
+export const GenresMultiSelectBtn = () => {
   const genresOptions = Object.entries(GENRE_MAP).map(([key, value]) => ({
     label: String(key)
       .split("_")
@@ -13,7 +13,10 @@ export const MultiSelectBtn = () => {
     value: String(value),
   }));
 
-  const { genres, changeGenre } = useGenre();
+  const {
+    filters: { genres },
+    setGenres,
+  } = useFilters();
   const [isLoading, setIsLoading] = useState(false);
 
   const genresSet = new Set<string>();
@@ -22,25 +25,21 @@ export const MultiSelectBtn = () => {
   return (
     <MultiSelect
       options={genresOptions}
-      value={
-        genres.join(",") === "all"
-          ? []
-          : genresOptions.reduce<string[]>((arr, { label, value }) => {
-              if (genresSet.has(label)) {
-                arr.push(value);
-              }
-              return arr;
-            }, [])
-      }
+      value={genresOptions.reduce<string[]>((arr, { label, value }) => {
+        if (genresSet.has(label)) {
+          arr.push(value);
+        }
+        return arr;
+      }, [])}
       onChange={(selectedValues) => {
         if (selectedValues.length === 0) {
-          changeGenre(["all"]);
+          setGenres(["all"]);
           return;
         }
         const selectedLabels = genresOptions
           .filter((opt) => selectedValues.includes(opt.value))
           .map((opt) => opt.label);
-        changeGenre(selectedLabels);
+        setGenres(selectedLabels);
       }}
       placeholder="Select Genres..."
       isLoading={isLoading}

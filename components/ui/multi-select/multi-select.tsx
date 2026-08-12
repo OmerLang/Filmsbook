@@ -74,7 +74,9 @@ export default function MultiSelect({
               }}
             >
               {value.length === 0 ? (
-                <span className="text-gray-300 truncate">{placeholder}</span>
+                <span className="text-(--text-color-buttons) truncate">
+                  {placeholder}
+                </span>
               ) : (
                 value.map((item) => {
                   const option = options?.find((opt) => opt.value === item);
@@ -115,8 +117,11 @@ export default function MultiSelect({
             </span>
           </div>
         </PopoverTrigger>
-        <PopoverContent className="w-full p-0" align="start">
-          <Command>
+        <PopoverContent
+          className="w-[var(--radix-popover-trigger-width)] p-0 border-slate-500"
+          align="start"
+        >
+          <Command className="bg-(--background-color-buttons) text-slate-200/80">
             <CommandInput autoFocus={false} placeholder="Search items..." />
             <CommandList>
               <CommandEmpty className="p-0">

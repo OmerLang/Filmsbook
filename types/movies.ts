@@ -22,3 +22,9 @@ export type MoviesListData = {
   movies_quantity: number;
   movies: MovieBasics[];
 };
+
+export type Filters = {
+  genres: string[];
+  search: string;
+  sortBy: string;
+};

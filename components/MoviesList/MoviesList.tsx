@@ -5,13 +5,13 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { useInView } from "react-intersection-observer";
 import { getMoviesDiscoverOptions } from "@/utills/query_options/options";
 import { useEffect } from "react";
-import { useGenre } from "@/app/providers";
+import { useFilters } from "@/app/providers";
 
 export const MoviesList = () => {
   const { ref, inView } = useInView();
-  const { genres } = useGenre();
+  const { filters } = useFilters();
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } =
-    useInfiniteQuery(getMoviesDiscoverOptions(genres));
+    useInfiniteQuery(getMoviesDiscoverOptions(filters));
 
   useEffect(() => {
     if (inView && hasNextPage && !isFetchingNextPage && !isFetching) {
