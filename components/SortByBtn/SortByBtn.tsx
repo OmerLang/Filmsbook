@@ -35,6 +35,7 @@ export const SortByBtn = ({ className = "" }: sortByBtnProps) => {
       value={sortBy}
       onValueChange={(value) => setOrderBy(value ?? "popularity.desc")}
       items={items}
+      modal={false}
     >
       <SelectTrigger className="w-full data-[size=default]:h-11 text-(--text-color-buttons) border-1 border-slate-500/60">
         <SelectValue placeholder="Sort by" />

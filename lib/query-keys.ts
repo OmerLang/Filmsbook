@@ -17,6 +17,8 @@ const normalizeFilter = <T extends Record<string, any>>(filters: T): T => {
 };
 
 export const movieKeys = {
+  single: (movieId: string) => ["movie", [movieId]] as const,
+
   all: ["movies"] as const,
   infiniteList: (filters: Filters) =>
     [...movieKeys.all, normalizeFilter(filters)] as const,

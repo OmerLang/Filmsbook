@@ -28,7 +28,7 @@ export default async function Home() {
             accept: "application/json",
             Authorization: process.env.TMDB_KEY ?? "",
           },
-          cache: "no-store",
+          next: { revalidate: 3600 },
         },
       );
       if (!res.ok) {

@@ -1,5 +1,9 @@
-import { infiniteQueryOptions } from "@tanstack/react-query";
-import { MoviesDiscoverResponse } from "@/types/movies";
+import { infiniteQueryOptions, queryOptions } from "@tanstack/react-query";
+import {
+  MoviesDiscoverResponse,
+  MovieBasics,
+  MovieExtended,
+} from "@/types/movies";
 import { Filters } from "@/types/movies";
 import { movieKeys } from "@/lib/query-keys";
 
@@ -27,6 +31,20 @@ export const getMoviesDiscoverOptions = (
     initialPageParam: 1,
     getNextPageParam: (lastPage) =>
       lastPage.page >= lastPage.total_pages ? undefined : lastPage.page + 1,
+    staleTime: 1000 * 60 * 5,
+    gcTime: 1000 * 60 * 5,
+  });
+};
+
+export const getSingleMovieOptions = (movieId: string) => {
+  const key = movieKeys.single(movieId);
+  return queryOptions({
+    queryKey: key,
+    queryFn: async (): Promise<MovieExtended> => {
+      const res = await fetch(`/movies/${movieId}`);
+      if (!res.ok) throw new Error("Failed to fetch movie from local api");
+      return res.json();
+    },
     staleTime: 1000 * 60 * 5,
     gcTime: 1000 * 60 * 5,
   });
