@@ -60,9 +60,9 @@ export const MovieDetails = ({ movie }: { movie: MovieExtended }) => {
             <h2 className="font-medium text-3xl">Overview</h2>
             <p className="text-lg z-10 leading-7">{movie.overview}</p>
           </div>
-          <div className="grid text-gray-500 grid-cols-[max-content_max-content] sm:grid-cols-[max-content_max-content_max-content] pt-4 gap-y-4 justify-between">
+          <div className="grid text-gray-500 grid-cols-[max-content_max-content] sm:grid-cols-[max-content_max-content_max-content] gap-y-4 justify-between">
             {filteredCrew.slice(0, 6).map((crewMember) => (
-              <div className="flex flex-col" key={crewMember.credit_id}>
+              <div key={crewMember.credit_id}>
                 <div className="flex flex-col">
                   <span className="text-gray-300">{crewMember.job}</span>
                   <span>{crewMember.name}</span>
