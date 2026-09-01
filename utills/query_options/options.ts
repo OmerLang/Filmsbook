@@ -25,7 +25,7 @@ export const getMoviesDiscoverOptions = (
         search: filters.search,
         sortBy: filters.sortBy,
       });
-      const res = await fetch(`/api/movies?${params.toString()}`);
+      const res = await fetch(`/api/movie?${params.toString()}`);
       if (!res.ok) throw new Error("Failed to fetch movies from local api");
       return res.json();
     },
