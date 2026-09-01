@@ -36,7 +36,7 @@ export default async function Home() {
       }
       return res.json();
     },
-    pages: 2,
+    pages: 4,
   });
 
   return (

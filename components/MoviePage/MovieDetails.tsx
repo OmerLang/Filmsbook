@@ -1,18 +1,11 @@
 import { MovieExtended } from "@/types/movies";
 import Image from "next/image";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
+import { AutoCarousel } from "../AutoCarousel/AutoCarousel";
 
 export const MovieDetails = ({ movie }: { movie: MovieExtended }) => {
   const {
     credits: { crew, cast },
   } = movie;
-  console.log(cast);
   const genres = movie.genres
     .flat(1)
     .map((genre) => genre.name)
@@ -21,6 +14,7 @@ export const MovieDetails = ({ movie }: { movie: MovieExtended }) => {
     (crewMember, index, arr) =>
       arr.findIndex((m) => m.id === crewMember.id) === index,
   );
+
   return (
     <div>
       <div className="relative flex flex-col justify-center w-full p-4 pb-2 min-h-120 md:p-8 md:pt-3">
@@ -31,7 +25,7 @@ export const MovieDetails = ({ movie }: { movie: MovieExtended }) => {
           loading="eager"
           className="object-cover [mask-image:linear-gradient(to_bottom,transparent_0%,black_20%,black_30%,transparent_100%)]"
         />
-        <div className="z-1 flex flex-col gap-4 md:items-center md:gap-5">
+        <div className="z-1 flex flex-col gap-4 items-center md:items-start lg:flex-row lg:items-end">
           <div className="aspect-[2/3] w-50 relative z-1 rounded-3xl overflow-hidden">
             <Image
               src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
@@ -43,18 +37,18 @@ export const MovieDetails = ({ movie }: { movie: MovieExtended }) => {
             />
           </div>
           <div className="absolute inset-0 bg-black/30"></div>
-          <div className="flex flex-col gap-2">
-            <h1 className="flex md:justify-center text-gray-200 text-4xl z-10 font-semibold tracking-tight">
+          <div className="flex flex-col">
+            <h1 className="flex justify-center sm:justify-start text-gray-200 text-3xl z-10 font-semibold tracking-tight lg:text-4xl">
               {movie.title}
             </h1>
-            <div className="flex md:justify-center text-gray-300 gap-2">
+            <div className="flex justify-center md:justify-start text-gray-300 gap-2">
               <span>| {movie.runtime} Minutes |</span>
               <span>{genres}</span>
             </div>
           </div>
         </div>
       </div>
-      <div className="flex flex-col gap-5 lg:flex-row w-full p-4 lg:gap-8">
+      <div className="flex flex-col gap-5 lg:flex-row w-full p-4 pb-0 lg:gap-8">
         <div className="flex flex-col gap-5 pt-0">
           <div className="flex flex-col text-gray-300 gap-2">
             <h2 className="font-medium text-3xl">Overview</h2>
@@ -87,7 +81,7 @@ export const MovieDetails = ({ movie }: { movie: MovieExtended }) => {
               </span>
             </div>
           )}
-          <div className="[&>div]:flex [&>div]:justify-between grid grid-cols-1 divide-y divide-gray-500/70 [&>div>*:first-child]:text-gray-300 [&>div>*:nth-child(2)]:text-gray-500 border rounded-xl border-gray-500/70 [&>div]:p-3 mb-4 [&>div]:flex-nowrap min-w-100">
+          <div className="[&>div]:flex [&>div]:justify-between grid grid-cols-1 divide-y divide-gray-500/70 [&>div>*:first-child]:text-gray-300 [&>div>*:nth-child(2)]:text-gray-500 border rounded-xl border-gray-500/70 [&>div]:p-3 mb-2 [&>div]:flex-nowrap min-w-100">
             <div>
               <span>Status</span>
               <span>{movie.status}</span>
@@ -115,21 +109,9 @@ export const MovieDetails = ({ movie }: { movie: MovieExtended }) => {
           </div>
         </div>
       </div>
-      <Carousel
-        opts={{
-          align: "start",
-          dragFree: true,
-        }}
-        className="w-full"
-      >
-        <CarouselContent>
-          {cast.map((actor) => (
-            <CarouselItem key={actor.cast_id}>
-              <div>{actor.name}</div>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-      </Carousel>
+      <div className="">
+        <AutoCarousel cast={cast} className="pt-2 pb-4" />
+      </div>
     </div>
   );
 };
