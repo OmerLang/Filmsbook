@@ -21,7 +21,7 @@ export default async function MoviePage({
           method: "GET",
           headers: {
             accept: "application/json",
-            Authorization: process.env.TMDB_KEY ?? "",
+            Authorization: `Bearer ${process.env.TMDB_KEY ?? ""}`,
           },
           next: { revalidate: 3600 },
         },
@@ -33,9 +33,9 @@ export default async function MoviePage({
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <div className="grid grid-cols-[repeat(auto-fit,minmax(145px,1fr))]">
+      <main className="min-h-screen w-full">
         <MovieDetails movie={movie} />
-      </div>
+      </main>
     </HydrationBoundary>
   );
 }

@@ -3,9 +3,10 @@ import {
   MoviesDiscoverResponse,
   MovieBasics,
   MovieExtended,
+  Actor,
 } from "@/types/movies";
 import { Filters } from "@/types/movies";
-import { movieKeys } from "@/lib/query-keys";
+import { movieKeys, actorKeys } from "@/lib/query-keys";
 
 export const getMoviesDiscoverOptions = (
   filters: Filters = { genres: [], search: "", sortBy: "popularity.desc" },
@@ -41,8 +42,22 @@ export const getSingleMovieOptions = (movieId: string) => {
   return queryOptions({
     queryKey: key,
     queryFn: async (): Promise<MovieExtended> => {
-      const res = await fetch(`/movies/${movieId}`);
+      const res = await fetch(`/movie/${movieId}`);
       if (!res.ok) throw new Error("Failed to fetch movie from local api");
+      return res.json();
+    },
+    staleTime: 1000 * 60 * 5,
+    gcTime: 1000 * 60 * 5,
+  });
+};
+
+export const getSingleActorOptions = (actorId: number) => {
+  const key = actorKeys.single(actorId);
+  return queryOptions({
+    queryKey: key,
+    queryFn: async (): Promise<Actor> => {
+      const res = await fetch(`{/actor/${actorId}`);
+      if (!res.ok) throw new Error("Failed to fetch actor from local api");
       return res.json();
     },
     staleTime: 1000 * 60 * 5,

@@ -42,7 +42,7 @@ export type MovieExtended = MovieBasics & {
   status: string;
   tagline: string;
   credits: {
-    cast: Cast[];
+    cast: Actor[];
     crew: {
       adult: boolean;
       gender: number;
@@ -57,7 +57,7 @@ export type MovieExtended = MovieBasics & {
   };
 };
 
-export type Cast = {
+export type Actor = {
   adult: boolean;
   gender: number;
   id: number;

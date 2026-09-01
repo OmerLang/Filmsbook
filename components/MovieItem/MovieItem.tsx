@@ -11,7 +11,7 @@ export const MovieItem = ({ movie }: MovieItemProps) => {
   const release_year = movie.release_date.slice(0, 4);
 
   return (
-    <Link href={`/movies/${movie.id}`}>
+    <Link href={`/movie/${movie.id}`}>
       <div className="group flex flex-col rounded-xl overflow-hidden relative border border-gray-500">
         <div className="aspect-[2/3] w-full relative">
           <Image

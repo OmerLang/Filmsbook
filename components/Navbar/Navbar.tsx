@@ -35,9 +35,9 @@ export const Navbar = () => {
 
   return (
     <header
-      className={`sticky w-5/6 mx-auto z-50 border-1 border-slate-600 bg-sky-950/90 backdrop-blur-sm transition-all duration-300 ease-in-out
-        ${isScrolled ? "top-4 rounded-4xl" : "top-0 rounded-b-4xl border-t-0"}
-      `}
+      className={`fixed top-0 left-0 right-0 w-5/6 mx-auto z-50 border-1 border-slate-600 bg-sky-950/90 backdrop-blur-sm transition-all duration-300 ease-in-out
+          ${isScrolled ? "top-4 rounded-4xl" : "top-0 rounded-b-4xl border-t-0"}
+        `}
     >
       <div className="mx-auto flex items-center justify-between max-w-7xl px-4 py-1 text-white">
         <Link href={"/"}>

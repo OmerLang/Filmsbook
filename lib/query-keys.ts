@@ -23,3 +23,7 @@ export const movieKeys = {
   infiniteList: (filters: Filters) =>
     [...movieKeys.all, normalizeFilter(filters)] as const,
 };
+
+export const actorKeys = {
+  single: (actorKey: number) => ["actor", [actorKey]] as const,
+};

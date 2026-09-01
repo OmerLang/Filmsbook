@@ -9,11 +9,11 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import AutoScroll from "embla-carousel-auto-scroll";
-import { Cast } from "@/types/movies";
+import { Actor } from "@/types/movies";
 import { cn } from "@/lib/utils";
 
 type AutoCarouselProps = {
-  cast: Cast[];
+  cast: Actor[];
   className?: string;
   wrapperClassName?: string;
 };
@@ -28,7 +28,7 @@ export const AutoCarousel = ({
     playOnInit: true,
     stopOnInteraction: false,
     speed: 0.5,
-    stopOnMouseEnter: false,
+    stopOnMouseEnter: true,
     stopOnFocusIn: false,
   });
 

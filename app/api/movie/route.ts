@@ -40,7 +40,7 @@ export async function GET(request: Request) {
     method: "GET",
     headers: {
       accept: "application/json",
-      Authorization: process.env.TMDB_KEY ?? "",
+      Authorization: `Bearer ${process.env.TMDB_KEY ?? ""}`,
     },
     next: { revalidate: 3600 },
   });

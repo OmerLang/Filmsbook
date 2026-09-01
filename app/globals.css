@@ -52,7 +52,7 @@
   --background-color-buttons: oklch(20.8% 0.042 265.755);
   --text-color-buttons: oklch(87.2% 0.01 258.338);
   --text-color-buttons-content: oklch(95.815% 0.00011 271.152);
-  --background: oklch(1 0 0);
+  --background: oklch(20.8% 0.042 265.755);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
