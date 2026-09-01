@@ -33,12 +33,12 @@ export const ActorCard = ({
         sizes="(max-width: 768px) 150px, 200px"
         className="object-cover"
       />
-      <div className="absolute inset-0 bg-black mask-[linear-gradient(to_top,rgba(0,0,0,0.86)_20%,rgba(0,0,0,0.80)_35%,rgba(0,0,0,0.55)_74%,transparent_100%)]" />
+      <div className="absolute inset-0 bg-black mask-[linear-gradient(to_top,rgba(0,0,0,0.70)_15%,rgba(0,0,0,0.50)_35%,rgba(0,0,0,0.15)_80%,transparent_100%)]" />
       <div className="absolute inset-x-0 bottom-0 flex flex-col h-28 justify-start px-3 pt-11 items-center w-full pointer-events-none">
-        <span className="text-gray-300 font-semibold text-center line-clamp-1 text-shadow-md">
+        <span className="text-gray-200 font-semibold text-center line-clamp-1 text-shadow-md">
           {name}
         </span>
-        <span className="text-gray-300 text-sm text-center line-clamp-2 text-shadow-md">
+        <span className="text-gray-200 text-sm text-center line-clamp-2 text-shadow-md">
           {character || "\u00A0"}
         </span>
       </div>
