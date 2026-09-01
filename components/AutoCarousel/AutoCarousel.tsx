@@ -47,12 +47,7 @@ export const AutoCarousel = ({
       >
         {cast.map((actor) => (
           <CarouselItem key={actor.cast_id} className="pl-6 basis-auto">
-            <ActorCard
-              name={actor.name}
-              character={actor.character}
-              profilePath={actor.profile_path}
-              className=""
-            />
+            <ActorCard actor={actor} className="" />
           </CarouselItem>
         ))}
       </CarouselContent>

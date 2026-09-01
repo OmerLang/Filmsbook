@@ -4,6 +4,7 @@ import {
   MovieBasics,
   MovieExtended,
   Actor,
+  ActorExtended,
 } from "@/types/movies";
 import { Filters } from "@/types/movies";
 import { movieKeys, actorKeys } from "@/lib/query-keys";
@@ -55,7 +56,7 @@ export const getSingleActorOptions = (actorId: number) => {
   const key = actorKeys.single(actorId);
   return queryOptions({
     queryKey: key,
-    queryFn: async (): Promise<Actor> => {
+    queryFn: async (): Promise<ActorExtended> => {
       const res = await fetch(`{/actor/${actorId}`);
       if (!res.ok) throw new Error("Failed to fetch actor from local api");
       return res.json();
