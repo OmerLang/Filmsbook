@@ -1,9 +1,9 @@
 "use client";
-import { MovieItem } from "../MovieItem/MovieItem";
-import { MovieItemSkeleton } from "../MovieItem/MovieItemSkeleton";
+import { MovieItem } from "./MovieItem";
+import { MovieItemSkeleton } from "./MovieItemSkeleton";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useInView } from "react-intersection-observer";
-import { getMoviesDiscoverOptions } from "@/utills/query_options/options";
+import { getMoviesDiscoverOptions } from "@/utils/query_options/options";
 import { useEffect } from "react";
 import { useFilters } from "@/app/providers";
 

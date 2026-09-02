@@ -1,8 +1,8 @@
-import { getQueryClient } from "@/utills/query_client/getQueryClient";
-import { getSingleActorOptions } from "@/utills/query_options/options";
+import { getQueryClient } from "@/utils/query_client/getQueryClient";
+import { getSingleActorOptions } from "@/utils/query_options/options";
 import { ActorExtended } from "@/types/movies";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
-import { ActorDetails } from "@/components/ActorPage/ActorDetails";
+import { ActorDetails } from "@/components/actor-page/ActorDetails";
 
 export default async function ActorPage({
   params,

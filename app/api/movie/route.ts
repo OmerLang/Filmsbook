@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { GENRE_MAP } from "@/utills/movies_genres/movies_genres";
+import { GENRE_MAP } from "@/utils/movies_genres/movies_genres";
 
 const convertGenres = (genres: string): string => {
   const normalizedGenres: string[] = genres

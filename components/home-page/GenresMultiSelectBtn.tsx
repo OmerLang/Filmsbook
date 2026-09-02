@@ -1,7 +1,7 @@
 "use client";
 import MultiSelect from "../ui/multi-select/multi-select";
 import { useState } from "react";
-import { GENRE_MAP } from "@/utills/movies_genres/movies_genres";
+import { GENRE_MAP } from "@/utils/movies_genres/movies_genres";
 import { useFilters } from "@/app/providers";
 
 export const GenresMultiSelectBtn = () => {

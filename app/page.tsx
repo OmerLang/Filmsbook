@@ -1,11 +1,11 @@
-import { getQueryClient } from "@/utills/query_client/getQueryClient";
-import { getMoviesDiscoverOptions } from "@/utills/query_options/options";
+import { getQueryClient } from "@/utils/query_client/getQueryClient";
+import { getMoviesDiscoverOptions } from "@/utils/query_options/options";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
-import { MoviesList } from "@/components/MoviesList/MoviesList";
+import { MoviesList } from "@/components/home-page/MoviesList";
 import { MoviesDiscoverResponse } from "@/types/movies";
-import { GenreTitle } from "@/components/GenreTitle/GenreTitle";
-import { GenresMultiSelectBtn } from "@/components/GenresMultiSelectBtn/GenresMultiSelectBtn";
-import { SortByBtn } from "@/components/SortByBtn/SortByBtn";
+import { GenreTitle } from "@/components/home-page/GenreTitle";
+import { GenresMultiSelectBtn } from "@/components/home-page/GenresMultiSelectBtn";
+import { SortByBtn } from "@/components/home-page/SortByBtn";
 
 export default async function Home() {
   const queryClient = getQueryClient();

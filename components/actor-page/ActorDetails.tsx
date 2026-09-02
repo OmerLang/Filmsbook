@@ -1,20 +1,7 @@
 import { ActorExtended } from "@/types/movies";
 import Image from "next/image";
-import { AutoCarousel } from "../AutoCarousel/AutoCarousel";
 
 export const ActorDetails = ({ actor }: { actor: ActorExtended }) => {
-  // const {
-  //   credits: { crew, cast },
-  // } = movie;
-  // const genres = movie.genres
-  //   .flat(1)
-  //   .map((genre) => genre.name)
-  //   .join(" ● ");
-  // const filteredCrew = crew.filter(
-  //   (crewMember, index, arr) =>
-  //     arr.findIndex((m) => m.id === crewMember.id) === index,
-  // );
-
   return (
     <div className="flex flex-col pb-4">
       <div className="absolute w-full min-h-130 -z-5">
