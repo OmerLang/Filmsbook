@@ -21,7 +21,11 @@ export const MovieItem = ({ movieItem }: MovieItemProps) => {
       <div className="group flex flex-col rounded-xl overflow-hidden relative border border-gray-500">
         <div className="aspect-[2/3] w-full relative">
           <Image
-            src={`https://image.tmdb.org/t/p/w185$poster_path}`}
+            src={
+              poster_path
+                ? `https://image.tmdb.org/t/p/w185${poster_path}`
+                : "/images/brand-images/Filmsbook.png"
+            }
             alt={title}
             fill
             loading="eager"
