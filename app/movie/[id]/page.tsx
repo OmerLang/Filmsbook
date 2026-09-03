@@ -44,7 +44,7 @@ export const generateMetadata = async ({
       `View ratings, cast, and reviews for ${movie.title} on Filmsbook.`;
 
     return {
-      title: `${movie.title}${releaseYear}`,
+      title: `${movie.title} ${releaseYear}`,
       description,
       alternates: {
         canonical: `/movie/${movieId}`,
@@ -92,18 +92,13 @@ export default async function MoviePage({ params }: PageProps) {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <main className="min-h-screen w-full">
-        <div className="flex flex-col pb-4">
-          <MovieBackdrop
-            backdropPath={movie.backdrop_path}
-            title={movie.title}
-          />
-          <div className="grid grid-cols-1 gap-y-10 mt-12 mb-5 px-4">
-            <MovieHero movie={movie} />
-            <MovieOverview movie={movie} />
-          </div>
-          <MovieCastCarousel movie={movie} className="py-2" />
+      <main className="min-h-screen w-full flex flex-col pb-4">
+        <MovieBackdrop backdropPath={movie.backdrop_path} title={movie.title} />
+        <div className="grid grid-cols-1 gap-y-10 mt-12 mb-5 px-4">
+          <MovieHero movie={movie} />
+          <MovieOverview movie={movie} />
         </div>
+        <MovieCastCarousel movie={movie} className="py-2" />
       </main>
     </HydrationBoundary>
   );

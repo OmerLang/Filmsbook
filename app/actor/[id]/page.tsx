@@ -3,7 +3,9 @@ import { getQueryClient } from "@/utils/query_client/getQueryClient";
 import { getSingleActorOptions } from "@/utils/query_options/options";
 import { ActorExtended } from "@/types/movies";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
-import { ActorDetails } from "@/components/actor-page/ActorDetails";
+import { ActorHero } from "@/components/actor-page/ActorHero";
+import { ActorKnownFor } from "@/components/actor-page/ActorKnownFor";
+import { ActorBackdrop } from "@/components/actor-page/ActorBackdrop";
 
 type ActorPageProps = {
   params: Promise<{ id: number }>;
@@ -76,10 +78,21 @@ export default async function ActorPage({ params }: ActorPageProps) {
       return res.json();
     },
   });
+  const {
+    movie_credits: { cast },
+  } = actor;
+
+  const backdropPath = cast[0]?.backdrop_path;
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <ActorDetails actor={actor} />
+      <main className="flex flex-col min-h-screen w-full">
+        <ActorBackdrop backdropPath={backdropPath} title={actor.name} />
+        <div className="flex flex-col gap-4 mt-15 my-5">
+          <ActorHero actor={actor} />
+          <ActorKnownFor cast={cast} />
+        </div>
+      </main>
     </HydrationBoundary>
   );
 }

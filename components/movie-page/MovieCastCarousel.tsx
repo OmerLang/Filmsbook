@@ -9,11 +9,11 @@ import {
 } from "@/components/ui/carousel";
 import { cn } from "@/lib/utils";
 
-interface MovieCastCarouselProps {
+type MovieCastCarouselProps = {
   movie: MovieExtended;
   className?: string;
   wrapperClassName?: string;
-}
+};
 
 export const MovieCastCarousel = ({
   movie,
@@ -45,13 +45,10 @@ export const MovieCastCarousel = ({
         }}
         plugins={[autoScroll]}
       >
-        <CarouselContent
-          className={cn("-ml-6", className)}
-          wrapperClassName={wrapperClassName}
-        >
+        <CarouselContent className={cn("-ml-6", className)}>
           {cast.map((actor) => (
             <CarouselItem key={actor.credit_id} className="pl-6 basis-auto">
-              <ActorCard actor={actor} className="" />
+              <ActorCard actor={actor} />
             </CarouselItem>
           ))}
         </CarouselContent>

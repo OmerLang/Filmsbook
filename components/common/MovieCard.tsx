@@ -1,8 +1,9 @@
 "use client";
 import Link from "next/link";
-
+import { cn } from "@/lib/utils";
+import React from "react";
 import Image from "next/image";
-type MovieItemProps = {
+type MovieItemProps = React.ComponentProps<"div"> & {
   movieItem: {
     id: number;
     title: string;
@@ -12,27 +13,29 @@ type MovieItemProps = {
   };
 };
 
-export const MovieItem = ({ movieItem }: MovieItemProps) => {
+export const MovieCard = ({ movieItem, className }: MovieItemProps) => {
   const { id, title, poster_path, release_date, vote_average } = movieItem;
   const release_year = release_date.slice(0, 4);
-
   return (
     <Link href={`/movie/${id}`}>
-      <div className="group flex flex-col rounded-xl overflow-hidden relative border border-gray-500">
-        <div className="aspect-[2/3] w-full relative">
-          <Image
-            src={
-              poster_path
-                ? `https://image.tmdb.org/t/p/w185${poster_path}`
-                : "/images/brand-images/Filmsbook.png"
-            }
-            alt={title}
-            fill
-            loading="eager"
-            sizes="(max-width: 640px) 145px, (max-width: 768px) 162px, 182px"
-            className="object-cover"
-          />
-        </div>
+      <div
+        className={cn(
+          "relative group flex flex-col aspect-2/3 rounded-xl overflow-hidden border border-gray-500",
+          className,
+        )}
+      >
+        <Image
+          src={
+            poster_path
+              ? `https://image.tmdb.org/t/p/w185${poster_path}`
+              : "/images/brand-images/filmsbook_poster.png"
+          }
+          alt={title}
+          fill
+          loading="eager"
+          sizes="(max-width: 640px) 145px, (max-width: 768px) 162px, 182px"
+          className="object-cover"
+        />
 
         <div className="absolute inset-0 group-hover:bg-black/60 transition duration-300 z-10 " />
         <div className="absolute flex flex-col justify-end p-2 items-start inset-0 text-white font-bold text-2xl opacity-100 group-hover:opacity-100 transition-opacity duration-300 z-20">

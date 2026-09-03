@@ -9,7 +9,7 @@ export const MovieHero = ({ movie }: { movie: MovieExtended }) => {
 
   return (
     <section className="relative flex flex-col justify-center w-full">
-      <div className="z-1 flex pt-10 flex-col gap-4 items-center md:items-start lg:flex-row lg:items-end">
+      <div className="z-1 flex pt-10 flex-col gap-4 items-center lg:items-start lg:flex-row lg:items-end">
         <div className="aspect-[2/3] w-40 sm:w-50 relative z-1 rounded-3xl overflow-hidden">
           <Image
             src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}

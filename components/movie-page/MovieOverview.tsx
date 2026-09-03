@@ -14,11 +14,9 @@ export const MovieOverview = ({ movie }: { movie: MovieExtended }) => {
     <section className="flex flex-col gap-8 lg:flex-row w-full">
       <div className="flex flex-col gap-8">
         <div className="flex flex-col text-gray-300 gap-2">
-          <span className="italic text-2xl text-slate-500">
-            {movie.tagline}
-          </span>
-          <h2 className="font-medium text-3xl">Overview</h2>
-          <p className="text-lg z-10 leading-7">{movie.overview}</p>
+          <span className="italic text-xl text-slate-400">{movie.tagline}</span>
+          <h2 className="font-bold text-xl sm:text-2xl">Overview</h2>
+          <p className="text-base z-10 leading-6">{movie.overview}</p>
         </div>
         <div className="grid text-gray-500 grid-cols-[max-content_max-content] sm:grid-cols-[max-content_max-content_max-content] gap-y-4 justify-between">
           {filteredCrew.slice(0, 6).map((crewMember) => (
@@ -33,7 +31,7 @@ export const MovieOverview = ({ movie }: { movie: MovieExtended }) => {
       </div>
       <div className="flex flex-col gap-4 min-w-80">
         {movie.belongs_to_collection?.backdrop_path && (
-          <div className="relative group overflow-hidden self-center w-full rounded-xl aspect-6/1 sm:aspect-8/1 md:aspect-10/1 lg:aspect-6/1 flex items-center justify-center cursor-pointer hover:scale-103 transition duration-300 ring-1 ring-gray-700 hover:ring-gray-600">
+          <div className="relative group overflow-hidden self-center w-full rounded-xl aspect-8/1 sm:aspect-8/1 md:aspect-12/1 lg:aspect-6/1 flex items-center justify-center cursor-pointer hover:scale-103 transition duration-300 ring-1 ring-gray-700 hover:ring-gray-600">
             <Image
               src={`https://image.tmdb.org/t/p/w1280${movie.belongs_to_collection?.backdrop_path}`}
               alt={movie.belongs_to_collection?.name}
@@ -42,7 +40,7 @@ export const MovieOverview = ({ movie }: { movie: MovieExtended }) => {
               className="object-cover"
             />
             <div className="absolute inset-0 bg-black/45 group-hover:bg-black/35 transition-all" />
-            <span className="relative z-10 text-gray-200 text-xl font-semibold tracking-wide text-center drop-shadow-md/35">
+            <span className="relative z-10 text-gray-200/95 text-xl tracking-wide text-center drop-shadow-md/35">
               {movie.belongs_to_collection?.name}
             </span>
           </div>

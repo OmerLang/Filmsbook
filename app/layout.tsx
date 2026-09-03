@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
-import { Roboto } from "next/font/google";
+import { Roboto, Inter } from "next/font/google";
 import "./globals.css";
 import Providers from "./providers";
 import { Navbar } from "@/components/common/Navbar";
 
 const roboto = Roboto({
+  subsets: ["latin"],
+});
+const inter = Inter({
   subsets: ["latin"],
 });
 
@@ -13,7 +16,7 @@ export const metadata: Metadata = {
     process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
   ),
   title: {
-    default: "Filmsbook — The Social Network for Movie Lovers",
+    default: "Filmsbook - The Social Network for Movie Lovers",
     template: "%s | Filmsbook",
   },
   description:
@@ -34,7 +37,7 @@ export const metadata: Metadata = {
     siteName: "Filmsbook",
     images: [
       {
-        url: "/Images/brand-images/Filmsbook.png",
+        url: "/Images/brand-images/filmsbook_backdrop.png",
         width: 1200,
         height: 630,
         alt: "Filmsbook — The Social Network for Movie Lovers",
@@ -48,7 +51,7 @@ export const metadata: Metadata = {
     title: "Filmsbook — The Social Network for Movie Lovers",
     description:
       "Connect with film lovers, share reviews, track your favorites, and discover your next watch.",
-    images: ["/images/brand-images/Filmsbook.png"],
+    images: ["/images/brand-images/filmsbook_backdrop.png"],
   },
 };
 
@@ -58,7 +61,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${roboto.className} h-full antialiased`}>
+    <html lang="en" className={`${inter.className} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-slate-900">
         <Providers>
           <Navbar />

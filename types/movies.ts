@@ -15,7 +15,7 @@ type MovieCreditBase = MovieBasics & {
   credit_id: string;
 };
 
-type CastCredit = MovieCreditBase & {
+export type CastCredit = MovieCreditBase & {
   character: string;
   order: number;
   profile_path: string | null;
