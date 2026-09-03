@@ -24,9 +24,8 @@ export const MovieHero = ({ movie }: { movie: MovieExtended }) => {
           <h1 className="flex justify-center sm:justify-start text-gray-200 text-2xl sm:text-3xl z-10 font-semibold tracking-tight lg:text-4xl">
             {movie.title}
           </h1>
-          <div className="flex justify-center md:justify-start text-gray-300 gap-2">
-            <span>| {movie.runtime} Minutes |</span>
-            <span>{genres}</span>
+          <div className="flex justify-center text-xs sm:text-sm lg:justify-start text-gray-300 gap-2">
+            {movie.runtime} Minutes | {genres}
           </div>
         </div>
       </div>
