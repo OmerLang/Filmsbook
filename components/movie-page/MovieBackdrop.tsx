@@ -4,7 +4,7 @@ export const MovieBackdrop = ({
   backdropPath,
   title,
 }: {
-  backdropPath?: string;
+  backdropPath?: string | null;
   title: string;
 }) => {
   if (!backdropPath) return null;
