@@ -50,7 +50,7 @@ export const MovieCastCarousel = ({
           wrapperClassName={wrapperClassName}
         >
           {cast.map((actor) => (
-            <CarouselItem key={actor.cast_id} className="pl-6 basis-auto">
+            <CarouselItem key={actor.credit_id} className="pl-6 basis-auto">
               <ActorCard actor={actor} className="" />
             </CarouselItem>
           ))}

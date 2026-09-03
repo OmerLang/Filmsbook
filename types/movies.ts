@@ -18,11 +18,15 @@ type MovieCreditBase = MovieBasics & {
 type CastCredit = MovieCreditBase & {
   character: string;
   order: number;
+  profile_path: string | null;
+  name: string;
 };
 
 type CrewCredit = MovieCreditBase & {
   department: string;
   job: string;
+  profile_path: string | null;
+  name: string;
 };
 
 export type MovieExtended = MovieBasics & {

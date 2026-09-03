@@ -8,7 +8,7 @@ type ActorCardProps = {
   id: number;
   name: string;
   character: string;
-  profile_path: string;
+  profile_path: string | null;
 };
 
 export const ActorCard = ({
