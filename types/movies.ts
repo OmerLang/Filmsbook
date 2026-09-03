@@ -1,24 +1,37 @@
-export type Genre = {
-  label: string;
-  value: string;
-};
-
-export type MovieBasics = {
+type MovieBasics = {
   id: number;
-  poster_path: string;
-  backdrop_path: string;
+  poster_path: string | null;
+  backdrop_path: string | null;
   release_date: string;
   title: string;
   vote_average: number;
+  vote_count: number;
+};
+
+type MovieCreditBase = MovieBasics & {
+  genre_ids: number[];
+  original_language: string;
+  overview: string;
+  credit_id: string;
+};
+
+type CastCredit = MovieCreditBase & {
+  character: string;
+  order: number;
+};
+
+type CrewCredit = MovieCreditBase & {
+  department: string;
+  job: string;
 };
 
 export type MovieExtended = MovieBasics & {
   belongs_to_collection: {
     id: number;
     name: string;
-    poster_path: string;
-    backdrop_path: string;
-  };
+    poster_path: string | null;
+    backdrop_path: string | null;
+  } | null;
   budget: number;
   genres: {
     id: number;
@@ -42,67 +55,27 @@ export type MovieExtended = MovieBasics & {
   status: string;
   tagline: string;
   credits: {
-    cast: Actor[];
-    crew: CrewMember[];
+    cast: CastCredit[];
+    crew: CrewCredit[];
   };
-};
-
-export type CrewMember = {
-  adult: boolean;
-  gender: number;
-  id: number;
-  name: string;
-  popularity: number;
-  profile_path: string;
-  credit_id: string;
-  department: string;
-  job: string;
-};
-
-export type Actor = {
-  adult: boolean;
-  gender: number;
-  id: number;
-  name: string;
-  popularity: number;
-  profile_path: string;
-  cast_id: number;
-  character: string;
-  credit_id: string;
-  order: number;
 };
 
 export type ActorExtended = {
   also_known_as: string[];
   biography: string;
-  birthday: string;
-  gender: 1 | 2;
+  birthday: string | null;
+  gender: 0 | 1 | 2 | 3;
   homepage: string | null;
   id: number;
-  imdb_id: string;
+  imdb_id: string | null;
   known_for_department: string;
   name: string;
-  place_of_birth: string;
+  place_of_birth: string | null;
   popularity: number;
-  profile_path: string;
+  profile_path: string | null;
   movie_credits: {
-    cast: {
-      backdrop_path: string;
-      genre_ids: number[];
-      id: number;
-      original_language: string;
-      original_title: string;
-      overview: string;
-      popularity: number;
-      poster_path: string;
-      release_date: string;
-      title: string;
-      vote_average: number;
-      vote_count: number;
-      character: string;
-      credit_id: string;
-      order: number;
-    }[];
+    cast: CastCredit[];
+    crew: CrewCredit[];
   };
 };
 

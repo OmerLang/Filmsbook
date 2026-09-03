@@ -1,9 +1,7 @@
 import { infiniteQueryOptions, queryOptions } from "@tanstack/react-query";
 import {
   MoviesDiscoverResponse,
-  MovieBasics,
   MovieExtended,
-  Actor,
   ActorExtended,
 } from "@/types/movies";
 import { Filters } from "@/types/movies";
