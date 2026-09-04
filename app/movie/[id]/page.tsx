@@ -52,7 +52,9 @@ export const generateMetadata = async ({
       openGraph: {
         title: `${movie.title}${releaseYear}`,
         description,
-        images: imageUrl ? [{ url: imageUrl, alt: movie.title }] : [],
+        images: imageUrl
+          ? [{ url: imageUrl, alt: movie.title ?? "Movie title" }]
+          : [],
       },
       twitter: {
         card: "summary_large_image",

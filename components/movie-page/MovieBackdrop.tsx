@@ -5,14 +5,14 @@ export const MovieBackdrop = ({
   title,
 }: {
   backdropPath?: string | null;
-  title: string;
+  title: string | null;
 }) => {
   if (!backdropPath) return null;
   return (
     <div className="absolute w-full min-h-130 -z-5">
       <Image
         src={`https://image.tmdb.org/t/p/w1280${backdropPath}`}
-        alt={title}
+        alt={title ?? "Movie poster"}
         fill
         loading="eager"
         className="object-cover"
