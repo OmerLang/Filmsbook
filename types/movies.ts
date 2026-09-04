@@ -2,10 +2,10 @@ type MovieBasics = {
   id: number;
   poster_path: string | null;
   backdrop_path: string | null;
-  release_date: string;
-  title: string;
-  vote_average: number;
-  vote_count: number;
+  release_date: string | null;
+  title: string | null;
+  vote_average: number | null;
+  vote_count: number | null;
 };
 
 type MovieCreditBase = MovieBasics & {

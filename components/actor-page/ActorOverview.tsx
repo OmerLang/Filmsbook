@@ -45,13 +45,15 @@ export const ActorOverview = ({
           </div>
         )}
       </div>
-      <ExpandableParagraph
-        paragraph={biography}
-        expanded={expanded}
-        charsThreshold={350}
-        onClick={() => setExpanded(!expanded)}
-        className="text-sm lg:text-base font-light"
-      />
+      {biography && (
+        <ExpandableParagraph
+          paragraph={biography}
+          expanded={expanded}
+          charsThreshold={350}
+          onClick={() => setExpanded(!expanded)}
+          className="text-sm lg:text-base font-light"
+        />
+      )}
     </div>
   );
 };

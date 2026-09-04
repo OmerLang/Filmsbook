@@ -13,7 +13,7 @@ export const MovieHero = ({ movie }: { movie: MovieExtended }) => {
         <div className="aspect-[2/3] w-40 sm:w-50 relative z-1 rounded-3xl overflow-hidden">
           <Image
             src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-            alt={movie.title}
+            alt={movie.title ?? "Movie title"}
             fill
             loading="eager"
             sizes="(max-width: 640px) 145px, (max-width: 768px) 162px, 182px"

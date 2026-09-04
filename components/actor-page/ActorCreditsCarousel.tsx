@@ -9,13 +9,15 @@ type ActorCreditsCarouselProps = {
   credits: CastCredit[];
   speed?: number;
   direction?: "ltr" | "rtl";
+  loop?: boolean | undefined;
   className?: string;
 };
 
 export const ActorCreditsCarousel = ({
   credits,
-  speed = 0.5,
+  speed = 0.2,
   direction = "ltr",
+  loop = true,
   className,
 }: ActorCreditsCarouselProps) => {
   const autoScroll = AutoScroll({
@@ -30,7 +32,7 @@ export const ActorCreditsCarousel = ({
     <Carousel
       opts={{
         align: "start",
-        loop: true,
+        loop,
         dragFree: true,
         direction: direction,
       }}
@@ -43,10 +45,12 @@ export const ActorCreditsCarousel = ({
             className="pl-6 basis-auto group"
             dir="ltr"
           >
-            <MovieCard
-              movieItem={credit}
-              className="h-65 group-hover:scale-105 transition"
-            />
+            <div className="flex flex-col items-center gap-1 group-hover:scale-105 transition">
+              <MovieCard movieItem={credit} className="h-65" />
+              <span className="text-sm text-slate-300">
+                as {credit.character}
+              </span>
+            </div>
           </CarouselItem>
         ))}
       </CarouselContent>

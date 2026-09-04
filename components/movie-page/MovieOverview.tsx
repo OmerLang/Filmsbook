@@ -1,5 +1,6 @@
 import { MovieExtended } from "@/types/movies";
 import Image from "next/image";
+import { SectionTitle } from "../typography/typography";
 
 export const MovieOverview = ({ movie }: { movie: MovieExtended }) => {
   const {
@@ -13,10 +14,12 @@ export const MovieOverview = ({ movie }: { movie: MovieExtended }) => {
   return (
     <section className="flex flex-col gap-8 lg:flex-row w-full">
       <div className="flex flex-col gap-8">
-        <div className="flex flex-col text-gray-300 gap-2">
+        <div className="flex flex-col gap-2">
           <span className="italic text-xl text-slate-400">{movie.tagline}</span>
-          <h2 className="font-bold text-xl sm:text-2xl">Overview</h2>
-          <p className="text-base z-10 leading-6">{movie.overview}</p>
+          <SectionTitle>Overview</SectionTitle>
+          <p className="text-base z-10 text-gray-400 leading-6">
+            {movie.overview}
+          </p>
         </div>
         <div className="grid text-gray-500 grid-cols-[max-content_max-content] sm:grid-cols-[max-content_max-content_max-content] gap-y-4 justify-between">
           {filteredCrew.slice(0, 6).map((crewMember) => (

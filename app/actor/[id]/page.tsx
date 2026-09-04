@@ -66,7 +66,7 @@ export default async function ActorPage({ params }: ActorPageProps) {
     ...getSingleActorOptions(actorId),
     queryFn: async (): Promise<ActorExtended> => {
       const res = await fetch(
-        `https://api.themoviedb.org/3/person/${actorId}?append_to_response=movie_credits&language=en-US?`,
+        `https://api.themoviedb.org/3/person/${actorId}?append_to_response=movie_credits&language=en-US`,
         {
           method: "GET",
           headers: HEADERS,
@@ -78,9 +78,7 @@ export default async function ActorPage({ params }: ActorPageProps) {
       return res.json();
     },
   });
-  const {
-    movie_credits: { cast },
-  } = actor;
+  const cast = actor?.movie_credits?.cast ?? [];
 
   const backdropPath = cast[0]?.backdrop_path;
 

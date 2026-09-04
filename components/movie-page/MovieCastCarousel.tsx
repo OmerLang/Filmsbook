@@ -1,4 +1,5 @@
 "use client";
+import { SectionTitle } from "../typography/typography";
 import { MovieExtended } from "@/types/movies";
 import { ActorCard } from "./ActorCard";
 import AutoScroll from "embla-carousel-auto-scroll";
@@ -35,7 +36,7 @@ export const MovieCastCarousel = ({
   return (
     <section className="flex flex-col gap-2">
       <div className="px-4">
-        <h2 className="font-medium text-3xl text-gray-300">Cast</h2>
+        <SectionTitle>Cast</SectionTitle>
       </div>
       <Carousel
         opts={{

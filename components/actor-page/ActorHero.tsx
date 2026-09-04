@@ -9,7 +9,7 @@ export const ActorHero = ({ actor }: { actor: ActorExtended }) => {
       className="relative flex flex-col relative flex flex-col items-center justify-center w-full p-5 gap-5 lg:flex-row lg:items-start"
       aria-labelledby="actor-name"
     >
-      <div className="aspect-[2/3] w-40 sm:w-50 relative z-10 rounded-3xl overflow-hidden shrink-0">
+      <div className="aspect-[2/3] w-40 sm:w-50 relative z-10 rounded-3xl overflow-hidden shrink-0 ring-2 ring-gray-600">
         <Image
           src={
             profile_path

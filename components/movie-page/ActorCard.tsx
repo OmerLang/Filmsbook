@@ -19,13 +19,13 @@ export const ActorCard = ({
   className?: string;
 }) => {
   const imgSrc = actor.profile_path
-    ? `https://image.tmdb.org/t/p/w500${actor.profile_path}`
+    ? `https://image.tmdb.org/t/p/w185${actor.profile_path}`
     : "/images/actor_placeholder/placeholder.jpg";
   return (
     <Link href={`/actor/${actor.id}`}>
       <div
         className={cn(
-          "relative aspect-2/3 h-55 overflow-hidden rounded-3xl ring-1 ring-gray-700 hover:scale-105 hover:cursor-pointer transition-all",
+          "relative aspect-2/3 h-55 overflow-hidden rounded-3xl ring ring-gray-600 hover:ring-gray-500 hover:scale-105 hover:cursor-pointer transition-all",
           className,
         )}
       >
@@ -37,7 +37,7 @@ export const ActorCard = ({
           className="object-cover"
         />
         <div className="absolute inset-0 bg-black mask-[linear-gradient(to_top,rgba(0,0,0,0.70)_15%,rgba(0,0,0,0.50)_35%,rgba(0,0,0,0.15)_80%,transparent_100%)]" />
-        <div className="absolute inset-x-0 bottom-0 flex flex-col h-28 justify-start px-3 pt-11 items-center w-full pointer-events-none">
+        <div className="absolute inset-x-0 bottom-0 flex flex-col h-1/2 justify-start pt-10 items-center w-full pointer-events-none">
           <span className="text-gray-300 font-semibold text-center line-clamp-1 text-shadow-md/40">
             {actor.name}
           </span>
