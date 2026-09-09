@@ -1,5 +1,3 @@
-"use client";
-
 export const MainTitle = () => {
   return (
     <div className="relative -mb-1 text-6xl lg:text-7xl text-transparent font-black">

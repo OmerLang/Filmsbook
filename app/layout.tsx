@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Roboto, Inter } from "next/font/google";
 import "./globals.css";
 import Providers from "./providers";
-import { Navbar } from "@/components/common/Navbar";
+import { Navbar } from "@/components/common/navbar/Navbar";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -64,7 +64,7 @@ export default function RootLayout({
     <html lang="en" className={`${inter.className} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-slate-900">
         <Providers>
-          {/* <Navbar /> */}
+          <Navbar />
           {children}
         </Providers>
       </body>

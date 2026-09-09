@@ -1,6 +1,6 @@
 "use client";
 import { CastCredit } from "@/types/movies";
-import { MovieCard } from "@/components/common/MovieCard";
+import { MovieCard } from "@/components/common/movie-card/MovieCard";
 import { Carousel, CarouselContent, CarouselItem } from "../ui/carousel";
 import AutoScroll from "embla-carousel-auto-scroll";
 import { cn } from "@/lib/utils";

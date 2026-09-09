@@ -43,8 +43,8 @@ export const MovieOverview = ({ movie }: { movie: MovieExtended }) => {
               className="object-cover"
             />
             <div className="absolute inset-0 bg-black/45 group-hover:bg-black/35 transition-all" />
-            <span className="relative z-10 text-gray-200/95 text-xl tracking-wide text-center drop-shadow-md/35">
-              {movie.belongs_to_collection?.name}
+            <span className="relative z-10 text-gray-200/95 font-medium text-xl text-center drop-shadow-md/35">
+              {movie?.belongs_to_collection?.name}
             </span>
           </div>
         )}

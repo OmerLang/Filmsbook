@@ -2,11 +2,11 @@ import { Metadata } from "next";
 import { getQueryClient } from "@/utils/query_client/getQueryClient";
 import { getMoviesDiscoverOptions } from "@/utils/query_options/options";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
-import { MoviesList } from "@/components/home-page/MoviesList";
+import { MoviesList } from "@/components/home-page/movies-list/MoviesList";
 import { MoviesDiscoverResponse } from "@/types/movies";
-import { MainTitle } from "@/components/home-page/MainTitle";
-import { GenresMultiSelectBtn } from "@/components/home-page/GenresMultiSelectBtn";
-import { SortByBtn } from "@/components/home-page/SortByBtn";
+import { MainTitle } from "@/components/home-page/main-title/MainTitle";
+import { GenresMultiSelectBtn } from "@/components/home-page/genres-multi-select-btn/GenresMultiSelectBtn";
+import { SortByBtn } from "@/components/home-page/sort-by-btn/SortByBtn";
 
 export const metadata: Metadata = {
   alternates: {

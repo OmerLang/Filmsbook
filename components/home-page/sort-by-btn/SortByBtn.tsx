@@ -37,7 +37,7 @@ export const SortByBtn = ({ className = "" }: sortByBtnProps) => {
       items={items}
       modal={false}
     >
-      <SelectTrigger className="w-full data-[size=default]:h-11 text-(--text-color-buttons) border-1 border-slate-500/60">
+      <SelectTrigger className="w-full data-[size=default]:h-11 text-(--text-color-buttons) border-1 border-slate-500/60 hover:bg-accent/10 cursor-pointer">
         <SelectValue placeholder="Sort by" />
       </SelectTrigger>
       <SelectContent

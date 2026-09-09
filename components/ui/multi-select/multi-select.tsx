@@ -60,7 +60,6 @@ export default function MultiSelect({
             "flex h-12 w-full transition-all items-center justify-between rounded-md border border-input bg-background text-sm",
             "focus:outline-none focus:ring-1 focus:ring-ring focus:ring-offset-0",
             "disabled:cursor-not-allowed disabled:opacity-50",
-            "hover:bg-accent hover:text-accent-foreground",
           )}
           disabled={disabled}
           aria-expanded={open}

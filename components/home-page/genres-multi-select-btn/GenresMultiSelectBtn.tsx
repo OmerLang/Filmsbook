@@ -1,5 +1,5 @@
 "use client";
-import MultiSelect from "../ui/multi-select/multi-select";
+import MultiSelect from "../../ui/multi-select/multi-select";
 import { useState } from "react";
 import { GENRE_MAP } from "@/utils/movies_genres/movies_genres";
 import { useFilters } from "@/app/providers";
@@ -43,7 +43,7 @@ export const GenresMultiSelectBtn = () => {
       }}
       placeholder="Select Genres..."
       isLoading={isLoading}
-      className="[&_button]:bg-slate-700 [&_button]:text-white [&_button]:border-slate-700 [&_button:hover]:bg-slate-600 [&_button:hover]:border-slate-800 [&_button]:!h-11"
+      className="[&_button]:bg-slate-700 [&_button]:text-white [&_button]:border-slate-700 [&_button]:!h-11"
     ></MultiSelect>
   );
 };

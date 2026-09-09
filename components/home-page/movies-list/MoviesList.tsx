@@ -1,6 +1,6 @@
 "use client";
-import { MovieCard } from "@/components/common/MovieCard";
-import { MovieItemSkeleton } from "./MovieItemSkeleton";
+import { MovieCard } from "@/components/common/movie-card/MovieCard";
+import { MovieCardSkeleton } from "../../common/movie-card/MovieCardSkeleton";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useInView } from "react-intersection-observer";
 import { getMoviesDiscoverOptions } from "@/utils/query_options/options";
@@ -32,10 +32,10 @@ export const MoviesList = () => {
           />
         )),
       )}
-      {hasNextPage && <MovieItemSkeleton ref={ref} />}
+      {hasNextPage && <MovieCardSkeleton ref={ref} />}
       {hasNextPage &&
         [...Array(19)].map((_, index) => (
-          <MovieItemSkeleton key={`skeleton-${index}`} />
+          <MovieCardSkeleton key={`skeleton-${index}`} />
         ))}
     </div>
   );

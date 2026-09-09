@@ -25,6 +25,12 @@ export const ActorOverview = ({
   const [expanded, setExpanded] = useState(false);
   const { biography, name, birthday, place_of_birth, id, also_known_as } =
     actor;
+  const birthdayFormatted =
+    new Date(birthday ?? "").toLocaleDateString("en-US", {
+      year: "numeric",
+      day: "numeric",
+      month: "long",
+    }) ?? null;
   return (
     <div {...props} className={cn("flex flex-col w-full", className)}>
       <div className="flex flex-col gap-1">
@@ -34,10 +40,10 @@ export const ActorOverview = ({
         >
           {name}
         </h1>
-        {birthday && place_of_birth && (
+        {birthdayFormatted && place_of_birth && (
           <div className="text-gray-200 text-xs sm:text-sm text-center lg:text-left md:text-shadow-md space-y-1">
             <div>
-              Born {birthday} | {place_of_birth}
+              Born {birthdayFormatted} | {place_of_birth}
             </div>
             {also_known_as && (
               <div>{`Also Known as: ${also_known_as.join(", ")}`}</div>

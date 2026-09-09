@@ -1,7 +1,7 @@
 "use client";
 import { CastCredit } from "@/types/movies";
 import { ActorCreditsCarousel } from "./ActorCreditsCarousel";
-import { MovieCard } from "../common/MovieCard";
+import { MovieCard } from "../common/movie-card/MovieCard";
 import { useEffect, useMemo, useState } from "react";
 import { SectionTitle } from "../typography/typography";
 
