@@ -25,7 +25,7 @@ export const MovieCard = ({
   const { id, title, poster_path, release_date, vote_average } = movieItem;
   const release_year = release_date?.slice(0, 4) ?? null;
   return (
-    <Link href={`/movie/${id}`}>
+    <Link prefetch={false} href={`/movie/${id}`}>
       <div
         className={cn(
           "relative group flex flex-col aspect-2/3 rounded-xl overflow-hidden ring-1 ring-gray-600 hover:ring-gray-500 transition",
