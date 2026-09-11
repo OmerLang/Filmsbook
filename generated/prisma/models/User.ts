@@ -216,6 +216,8 @@ export type UserWhereInput = {
   lastName?: Prisma.StringFilter<"User"> | string
   sessions?: Prisma.SessionListRelationFilter
   accounts?: Prisma.AccountListRelationFilter
+  favoriteMovies?: Prisma.MovieListRelationFilter
+  movieReview?: Prisma.ReviewListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -230,6 +232,8 @@ export type UserOrderByWithRelationInput = {
   lastName?: Prisma.SortOrder
   sessions?: Prisma.SessionOrderByRelationAggregateInput
   accounts?: Prisma.AccountOrderByRelationAggregateInput
+  favoriteMovies?: Prisma.MovieOrderByRelationAggregateInput
+  movieReview?: Prisma.ReviewOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -247,6 +251,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   lastName?: Prisma.StringFilter<"User"> | string
   sessions?: Prisma.SessionListRelationFilter
   accounts?: Prisma.AccountListRelationFilter
+  favoriteMovies?: Prisma.MovieListRelationFilter
+  movieReview?: Prisma.ReviewListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -291,6 +297,8 @@ export type UserCreateInput = {
   lastName: string
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  favoriteMovies?: Prisma.MovieCreateNestedManyWithoutFavoritedByInput
+  movieReview?: Prisma.ReviewCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -305,6 +313,8 @@ export type UserUncheckedCreateInput = {
   lastName: string
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  favoriteMovies?: Prisma.MovieUncheckedCreateNestedManyWithoutFavoritedByInput
+  movieReview?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -319,6 +329,8 @@ export type UserUpdateInput = {
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  favoriteMovies?: Prisma.MovieUpdateManyWithoutFavoritedByNestedInput
+  movieReview?: Prisma.ReviewUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -333,6 +345,8 @@ export type UserUncheckedUpdateInput = {
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  favoriteMovies?: Prisma.MovieUncheckedUpdateManyWithoutFavoritedByNestedInput
+  movieReview?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -407,6 +421,16 @@ export type UserMinOrderByAggregateInput = {
   lastName?: Prisma.SortOrder
 }
 
+export type UserListRelationFilter = {
+  every?: Prisma.UserWhereInput
+  some?: Prisma.UserWhereInput
+  none?: Prisma.UserWhereInput
+}
+
+export type UserOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
+}
+
 export type UserScalarRelationFilter = {
   is?: Prisma.UserWhereInput
   isNot?: Prisma.UserWhereInput
@@ -426,6 +450,58 @@ export type BoolFieldUpdateOperationsInput = {
 
 export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
+}
+
+export type UserCreateNestedManyWithoutFavoriteMoviesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutFavoriteMoviesInput, Prisma.UserUncheckedCreateWithoutFavoriteMoviesInput> | Prisma.UserCreateWithoutFavoriteMoviesInput[] | Prisma.UserUncheckedCreateWithoutFavoriteMoviesInput[]
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFavoriteMoviesInput | Prisma.UserCreateOrConnectWithoutFavoriteMoviesInput[]
+  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+}
+
+export type UserUncheckedCreateNestedManyWithoutFavoriteMoviesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutFavoriteMoviesInput, Prisma.UserUncheckedCreateWithoutFavoriteMoviesInput> | Prisma.UserCreateWithoutFavoriteMoviesInput[] | Prisma.UserUncheckedCreateWithoutFavoriteMoviesInput[]
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFavoriteMoviesInput | Prisma.UserCreateOrConnectWithoutFavoriteMoviesInput[]
+  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+}
+
+export type UserUpdateManyWithoutFavoriteMoviesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutFavoriteMoviesInput, Prisma.UserUncheckedCreateWithoutFavoriteMoviesInput> | Prisma.UserCreateWithoutFavoriteMoviesInput[] | Prisma.UserUncheckedCreateWithoutFavoriteMoviesInput[]
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFavoriteMoviesInput | Prisma.UserCreateOrConnectWithoutFavoriteMoviesInput[]
+  upsert?: Prisma.UserUpsertWithWhereUniqueWithoutFavoriteMoviesInput | Prisma.UserUpsertWithWhereUniqueWithoutFavoriteMoviesInput[]
+  set?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  disconnect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  delete?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  update?: Prisma.UserUpdateWithWhereUniqueWithoutFavoriteMoviesInput | Prisma.UserUpdateWithWhereUniqueWithoutFavoriteMoviesInput[]
+  updateMany?: Prisma.UserUpdateManyWithWhereWithoutFavoriteMoviesInput | Prisma.UserUpdateManyWithWhereWithoutFavoriteMoviesInput[]
+  deleteMany?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
+}
+
+export type UserUncheckedUpdateManyWithoutFavoriteMoviesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutFavoriteMoviesInput, Prisma.UserUncheckedCreateWithoutFavoriteMoviesInput> | Prisma.UserCreateWithoutFavoriteMoviesInput[] | Prisma.UserUncheckedCreateWithoutFavoriteMoviesInput[]
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFavoriteMoviesInput | Prisma.UserCreateOrConnectWithoutFavoriteMoviesInput[]
+  upsert?: Prisma.UserUpsertWithWhereUniqueWithoutFavoriteMoviesInput | Prisma.UserUpsertWithWhereUniqueWithoutFavoriteMoviesInput[]
+  set?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  disconnect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  delete?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  update?: Prisma.UserUpdateWithWhereUniqueWithoutFavoriteMoviesInput | Prisma.UserUpdateWithWhereUniqueWithoutFavoriteMoviesInput[]
+  updateMany?: Prisma.UserUpdateManyWithWhereWithoutFavoriteMoviesInput | Prisma.UserUpdateManyWithWhereWithoutFavoriteMoviesInput[]
+  deleteMany?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
+}
+
+export type UserCreateNestedOneWithoutMovieReviewInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMovieReviewInput, Prisma.UserUncheckedCreateWithoutMovieReviewInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMovieReviewInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutMovieReviewNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMovieReviewInput, Prisma.UserUncheckedCreateWithoutMovieReviewInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMovieReviewInput
+  upsert?: Prisma.UserUpsertWithoutMovieReviewInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutMovieReviewInput, Prisma.UserUpdateWithoutMovieReviewInput>, Prisma.UserUncheckedUpdateWithoutMovieReviewInput>
 }
 
 export type UserCreateNestedOneWithoutSessionsInput = {
@@ -456,6 +532,148 @@ export type UserUpdateOneRequiredWithoutAccountsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAccountsInput, Prisma.UserUpdateWithoutAccountsInput>, Prisma.UserUncheckedUpdateWithoutAccountsInput>
 }
 
+export type UserCreateWithoutFavoriteMoviesInput = {
+  id?: string
+  name?: string | null
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  firstName: string
+  lastName: string
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  movieReview?: Prisma.ReviewCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutFavoriteMoviesInput = {
+  id?: string
+  name?: string | null
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  firstName: string
+  lastName: string
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  movieReview?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutFavoriteMoviesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutFavoriteMoviesInput, Prisma.UserUncheckedCreateWithoutFavoriteMoviesInput>
+}
+
+export type UserUpsertWithWhereUniqueWithoutFavoriteMoviesInput = {
+  where: Prisma.UserWhereUniqueInput
+  update: Prisma.XOR<Prisma.UserUpdateWithoutFavoriteMoviesInput, Prisma.UserUncheckedUpdateWithoutFavoriteMoviesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutFavoriteMoviesInput, Prisma.UserUncheckedCreateWithoutFavoriteMoviesInput>
+}
+
+export type UserUpdateWithWhereUniqueWithoutFavoriteMoviesInput = {
+  where: Prisma.UserWhereUniqueInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutFavoriteMoviesInput, Prisma.UserUncheckedUpdateWithoutFavoriteMoviesInput>
+}
+
+export type UserUpdateManyWithWhereWithoutFavoriteMoviesInput = {
+  where: Prisma.UserScalarWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateManyMutationInput, Prisma.UserUncheckedUpdateManyWithoutFavoriteMoviesInput>
+}
+
+export type UserScalarWhereInput = {
+  AND?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
+  OR?: Prisma.UserScalarWhereInput[]
+  NOT?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
+  id?: Prisma.StringFilter<"User"> | string
+  name?: Prisma.StringNullableFilter<"User"> | string | null
+  email?: Prisma.StringFilter<"User"> | string
+  emailVerified?: Prisma.BoolFilter<"User"> | boolean
+  image?: Prisma.StringNullableFilter<"User"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  firstName?: Prisma.StringFilter<"User"> | string
+  lastName?: Prisma.StringFilter<"User"> | string
+}
+
+export type UserCreateWithoutMovieReviewInput = {
+  id?: string
+  name?: string | null
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  firstName: string
+  lastName: string
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  favoriteMovies?: Prisma.MovieCreateNestedManyWithoutFavoritedByInput
+}
+
+export type UserUncheckedCreateWithoutMovieReviewInput = {
+  id?: string
+  name?: string | null
+  email: string
+  emailVerified?: boolean
+  image?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  firstName: string
+  lastName: string
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  favoriteMovies?: Prisma.MovieUncheckedCreateNestedManyWithoutFavoritedByInput
+}
+
+export type UserCreateOrConnectWithoutMovieReviewInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutMovieReviewInput, Prisma.UserUncheckedCreateWithoutMovieReviewInput>
+}
+
+export type UserUpsertWithoutMovieReviewInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutMovieReviewInput, Prisma.UserUncheckedUpdateWithoutMovieReviewInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutMovieReviewInput, Prisma.UserUncheckedCreateWithoutMovieReviewInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutMovieReviewInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutMovieReviewInput, Prisma.UserUncheckedUpdateWithoutMovieReviewInput>
+}
+
+export type UserUpdateWithoutMovieReviewInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  favoriteMovies?: Prisma.MovieUpdateManyWithoutFavoritedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutMovieReviewInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  favoriteMovies?: Prisma.MovieUncheckedUpdateManyWithoutFavoritedByNestedInput
+}
+
 export type UserCreateWithoutSessionsInput = {
   id?: string
   name?: string | null
@@ -467,6 +685,8 @@ export type UserCreateWithoutSessionsInput = {
   firstName: string
   lastName: string
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  favoriteMovies?: Prisma.MovieCreateNestedManyWithoutFavoritedByInput
+  movieReview?: Prisma.ReviewCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -480,6 +700,8 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   firstName: string
   lastName: string
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  favoriteMovies?: Prisma.MovieUncheckedCreateNestedManyWithoutFavoritedByInput
+  movieReview?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -509,6 +731,8 @@ export type UserUpdateWithoutSessionsInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  favoriteMovies?: Prisma.MovieUpdateManyWithoutFavoritedByNestedInput
+  movieReview?: Prisma.ReviewUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -522,6 +746,8 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  favoriteMovies?: Prisma.MovieUncheckedUpdateManyWithoutFavoritedByNestedInput
+  movieReview?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAccountsInput = {
@@ -535,6 +761,8 @@ export type UserCreateWithoutAccountsInput = {
   firstName: string
   lastName: string
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  favoriteMovies?: Prisma.MovieCreateNestedManyWithoutFavoritedByInput
+  movieReview?: Prisma.ReviewCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAccountsInput = {
@@ -548,6 +776,8 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   firstName: string
   lastName: string
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  favoriteMovies?: Prisma.MovieUncheckedCreateNestedManyWithoutFavoritedByInput
+  movieReview?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAccountsInput = {
@@ -577,6 +807,8 @@ export type UserUpdateWithoutAccountsInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  favoriteMovies?: Prisma.MovieUpdateManyWithoutFavoritedByNestedInput
+  movieReview?: Prisma.ReviewUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -590,6 +822,50 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   firstName?: Prisma.StringFieldUpdateOperationsInput | string
   lastName?: Prisma.StringFieldUpdateOperationsInput | string
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  favoriteMovies?: Prisma.MovieUncheckedUpdateManyWithoutFavoritedByNestedInput
+  movieReview?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserUpdateWithoutFavoriteMoviesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  movieReview?: Prisma.ReviewUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutFavoriteMoviesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  movieReview?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateManyWithoutFavoriteMoviesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 
@@ -600,11 +876,15 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
 export type UserCountOutputType = {
   sessions: number
   accounts: number
+  favoriteMovies: number
+  movieReview: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   sessions?: boolean | UserCountOutputTypeCountSessionsArgs
   accounts?: boolean | UserCountOutputTypeCountAccountsArgs
+  favoriteMovies?: boolean | UserCountOutputTypeCountFavoriteMoviesArgs
+  movieReview?: boolean | UserCountOutputTypeCountMovieReviewArgs
 }
 
 /**
@@ -631,6 +911,20 @@ export type UserCountOutputTypeCountAccountsArgs<ExtArgs extends runtime.Types.E
   where?: Prisma.AccountWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountFavoriteMoviesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.MovieWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountMovieReviewArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ReviewWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -644,6 +938,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   lastName?: boolean
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
+  favoriteMovies?: boolean | Prisma.User$favoriteMoviesArgs<ExtArgs>
+  movieReview?: boolean | Prisma.User$movieReviewArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -687,6 +983,8 @@ export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = run
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
+  favoriteMovies?: boolean | Prisma.User$favoriteMoviesArgs<ExtArgs>
+  movieReview?: boolean | Prisma.User$movieReviewArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -697,6 +995,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   objects: {
     sessions: Prisma.$SessionPayload<ExtArgs>[]
     accounts: Prisma.$AccountPayload<ExtArgs>[]
+    favoriteMovies: Prisma.$MoviePayload<ExtArgs>[]
+    movieReview: Prisma.$ReviewPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1104,6 +1404,8 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   readonly [Symbol.toStringTag]: "PrismaPromise"
   sessions<T extends Prisma.User$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   accounts<T extends Prisma.User$accountsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  favoriteMovies<T extends Prisma.User$favoriteMoviesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$favoriteMoviesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MoviePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  movieReview<T extends Prisma.User$movieReviewArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$movieReviewArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1580,6 +1882,54 @@ export type User$accountsArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   distinct?: Prisma.AccountScalarFieldEnum | Prisma.AccountScalarFieldEnum[]
+}
+
+/**
+ * User.favoriteMovies
+ */
+export type User$favoriteMoviesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Movie
+   */
+  select?: Prisma.MovieSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Movie
+   */
+  omit?: Prisma.MovieOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MovieInclude<ExtArgs> | null
+  where?: Prisma.MovieWhereInput
+  orderBy?: Prisma.MovieOrderByWithRelationInput | Prisma.MovieOrderByWithRelationInput[]
+  cursor?: Prisma.MovieWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.MovieScalarFieldEnum | Prisma.MovieScalarFieldEnum[]
+}
+
+/**
+ * User.movieReview
+ */
+export type User$movieReviewArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Review
+   */
+  select?: Prisma.ReviewSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Review
+   */
+  omit?: Prisma.ReviewOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReviewInclude<ExtArgs> | null
+  where?: Prisma.ReviewWhereInput
+  orderBy?: Prisma.ReviewOrderByWithRelationInput | Prisma.ReviewOrderByWithRelationInput[]
+  cursor?: Prisma.ReviewWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ReviewScalarFieldEnum | Prisma.ReviewScalarFieldEnum[]
 }
 
 /**

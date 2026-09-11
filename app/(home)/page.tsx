@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 export default async function Home() {
   const queryClient = getQueryClient();
   await queryClient.prefetchInfiniteQuery({
-    // Fetching the first 2 pages
+    // Fetching the first 4 pages
     ...getMoviesDiscoverOptions(),
     queryFn: async ({ pageParam }): Promise<MoviesDiscoverResponse> => {
       const params = new URLSearchParams({

@@ -34,7 +34,7 @@ export const ActorCreditsCarousel = ({
         align: "start",
         loop,
         dragFree: true,
-        direction: direction,
+        direction,
       }}
       plugins={[autoScroll]}
     >

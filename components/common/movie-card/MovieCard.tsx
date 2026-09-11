@@ -40,7 +40,6 @@ export const MovieCard = ({
           }
           alt={title ?? "Movie title"}
           fill
-          loading="eager"
           sizes="(max-width: 640px) 145px, (max-width: 768px) 162px, 182px"
           className="object-cover"
         />

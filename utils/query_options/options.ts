@@ -31,8 +31,8 @@ export const getMoviesDiscoverOptions = (
     initialPageParam: 1,
     getNextPageParam: (lastPage) =>
       lastPage.page >= lastPage.total_pages ? undefined : lastPage.page + 1,
-    staleTime: 1000 * 60 * 5,
-    gcTime: 1000 * 60 * 5,
+    staleTime: 1000 * 60,
+    gcTime: 1000 * 60,
   });
 };
 
@@ -45,8 +45,8 @@ export const getSingleMovieOptions = (movieId: string) => {
       if (!res.ok) throw new Error("Failed to fetch movie from local api");
       return res.json();
     },
-    staleTime: 1000 * 60 * 5,
-    gcTime: 1000 * 60 * 5,
+    staleTime: 1000 * 60,
+    gcTime: 1000 * 60,
   });
 };
 
@@ -59,7 +59,7 @@ export const getSingleActorOptions = (actorId: number) => {
       if (!res.ok) throw new Error("Failed to fetch actor from local api");
       return res.json();
     },
-    staleTime: 1000 * 60 * 5,
-    gcTime: 1000 * 60 * 5,
+    staleTime: 1000 * 60,
+    gcTime: 1000 * 60,
   });
 };

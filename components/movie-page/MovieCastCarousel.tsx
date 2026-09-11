@@ -19,7 +19,6 @@ type MovieCastCarouselProps = {
 export const MovieCastCarousel = ({
   movie,
   className,
-  wrapperClassName,
 }: MovieCastCarouselProps) => {
   const {
     credits: { cast },

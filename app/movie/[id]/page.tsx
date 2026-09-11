@@ -6,7 +6,7 @@ import { MovieHero } from "@/components/movie-page/MovieHero";
 import { MovieOverview } from "@/components/movie-page/MovieOverview";
 import { MovieCastCarousel } from "@/components/movie-page/MovieCastCarousel";
 import { MovieBackdrop } from "@/components/movie-page/MovieBackdrop";
-
+import { MovieReviewsSection } from "@/components/movie-page/movie-reviews/MovieReviewsSection";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 
 type PageProps = {
@@ -94,13 +94,14 @@ export default async function MoviePage({ params }: PageProps) {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <main className="min-h-screen w-full flex flex-col pb-4">
+      <main className="min-h-screen w-full flex flex-col gap-5 pb-4">
         <MovieBackdrop backdropPath={movie.backdrop_path} title={movie.title} />
-        <div className="grid grid-cols-1 gap-y-10 mt-12 mb-5 px-4">
+        <div className="grid grid-cols-1 gap-y-10 mt-12 px-4">
           <MovieHero movie={movie} />
           <MovieOverview movie={movie} />
         </div>
         <MovieCastCarousel movie={movie} className="py-2" />
+        <MovieReviewsSection />
       </main>
     </HydrationBoundary>
   );
