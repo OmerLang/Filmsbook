@@ -1,11 +1,29 @@
 "use client";
+
 import { MovieCard } from "@/components/common/movie-card/MovieCard";
 import { MovieCardSkeleton } from "../../common/movie-card/MovieCardSkeleton";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useInView } from "react-intersection-observer";
 import { getMoviesDiscoverOptions } from "@/utils/query_options/options";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useFilters } from "@/app/providers";
+import { motion } from "motion/react";
+import type { Variants } from "motion/react";
+
+const cardVariants: Variants = {
+  hidden: {
+    y: 18,
+    opacity: 0,
+  },
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.4,
+      ease: "easeOut",
+    },
+  },
+};
 
 export const MoviesList = () => {
   const { ref, inView } = useInView();
@@ -22,16 +40,28 @@ export const MoviesList = () => {
   return (
     <div className="grid auto-rows-fr grid-cols-[repeat(auto-fit,minmax(145px,1fr))] sm:grid-cols-[repeat(auto-fit,minmax(158px,1fr))] md:grid-cols-[repeat(auto-fit,minmax(152px,1fr))] lg:grid-cols-[repeat(auto-fill,minmax(182px,1fr))] gap-4">
       {data?.pages.map((page, pageIndex) =>
-        page.results.map((movie) => (
-          <MovieCard
-            movieItem={movie}
-            key={`${pageIndex}-${movie.id}`}
-            className="hover:scale-105 duration-150"
-            titleClassName="font-bold"
-            yearClassName="font-medium"
-          />
+        page.results.map((movie, movieIndex) => (
+          <motion.div
+            key={movie.id}
+            className="flex w-full h-full"
+            variants={cardVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{
+              scale: { duration: 0.2 },
+            }}
+          >
+            <MovieCard
+              movieItem={movie}
+              titleClassName="font-bold"
+              yearClassName="font-medium"
+              eagerLoading={pageIndex * movieIndex <= 40 ? true : false}
+            />
+          </motion.div>
         )),
       )}
+
       {hasNextPage && <MovieCardSkeleton ref={ref} />}
       {hasNextPage &&
         [...Array(19)].map((_, index) => (

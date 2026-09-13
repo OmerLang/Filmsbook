@@ -1,5 +1,6 @@
 import { SectionTitle } from "@/components/typography/typography";
 import { MovieReviewsCarousel } from "./MovieReviewsCarousel";
+import { AddReviewBtn } from "./AddReviewBtn";
 
 const fakeReviews = [
   {
@@ -32,7 +33,10 @@ const fakeReviews = [
 export const MovieReviewsSection = () => {
   return (
     <section className="flex flex-col gap-2 min-w-full min-h-30">
-      <SectionTitle className="px-4">Reviews</SectionTitle>
+      <div className="flex gap-2">
+        <SectionTitle className="px-4">Reviews</SectionTitle>
+        <AddReviewBtn tmdbId="969681" />
+      </div>
       <MovieReviewsCarousel className="py-2" reviews={fakeReviews} />
     </section>
   );
