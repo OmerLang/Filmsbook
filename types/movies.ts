@@ -6,6 +6,7 @@ type MovieBasics = {
   title: string | null;
   vote_average: number | null;
   vote_count: number | null;
+  overview: string;
 };
 
 type MovieCreditBase = MovieBasics & {
