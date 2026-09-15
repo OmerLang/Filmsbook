@@ -45,7 +45,7 @@ export const MoviesList = () => {
   const gridRef = useRef<HTMLDivElement | null>(null);
   const cardRef = useRef<HTMLDivElement | null>(null);
   const preLoadedImages = useRef(new Set<string>());
-  const { loadMoreRef, inView } = useInView();
+  const { ref: loadMoreRef, inView } = useInView();
   const { filters } = useFilters();
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } =
     useInfiniteQuery(getMoviesDiscoverOptions(filters));
