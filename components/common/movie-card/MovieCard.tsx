@@ -82,14 +82,16 @@ export const MovieCard = React.memo(function MovieCard({
               </h2>
             </div>
           </div>
-          <p
-            className={cn(
-              "absolute top-2 left-2 text-white font-medium z-20 -translate-y-100 transition group-hover:translate-y-0 duration-150",
-              vote,
-            )}
-          >
-            {vote_average ? vote_average.toFixed(1) : ""} ★
-          </p>
+          {vote_average && (
+            <p
+              className={cn(
+                "absolute top-2 left-2 text-white font-medium z-20 -translate-y-100 transition group-hover:translate-y-0 duration-150",
+                vote,
+              )}
+            >
+              vote_average.toFixed(1)★
+            </p>
+          )}
         </>
       )}
     </Link>

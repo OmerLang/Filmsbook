@@ -5,39 +5,71 @@ import { MovieCardSkeleton } from "../../common/movie-card/MovieCardSkeleton";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useInView } from "react-intersection-observer";
 import { getMoviesDiscoverOptions } from "@/utils/query_options/options";
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useMemo, useRef, useState, useCallback } from "react";
 import { useFilters } from "@/app/providers";
-import { motion } from "motion/react";
-import React from "react";
+import { motion, Transition } from "motion/react";
 import { MovieCardExpanded } from "./MovieCardExpanded";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 type MovieHovered = {
-  movieId: number;
-  // horizontal: "left" | "right" | "both";
-  // vertical: "top" | "bottom" | "both";
+  cardKey: string;
   top: number | "auto";
   bottom: number | "auto";
   left: number | "auto";
   right: number | "auto";
 };
 
+const ExpandedCardSizes = {
+  base: { height: 340, width: 340 },
+  sm: { height: 260, width: 378.2 },
+  md: { height: 320, width: 465.5 },
+  "2xl": { height: 340, width: 494.5 },
+} as const;
+
+const SHARED_LAYOUT_TRANSITION: Transition = {
+  layout: {
+    type: "spring",
+    stiffness: 320,
+    damping: 26,
+    bounce: 0.25,
+  },
+};
+
 export const MoviesList = () => {
   const [isMovieHovered, setIsMovieHovered] = useState<MovieHovered | null>(
     null,
   );
-  const [isAnimating, setIsAnimating] = useState<number | null>(null);
+  const canHover = useMediaQuery("(hover: hover)");
+  const [isAnimatingKey, setIsAnimatingKey] = useState<string | null>(null);
   const timer = useRef<NodeJS.Timeout | null>(null);
   const gridRef = useRef<HTMLDivElement | null>(null);
   const cardRef = useRef<HTMLDivElement | null>(null);
-  const [cardWidth, setCardWidth] = useState<number | null>(null);
-  const [cardHeight, setCardHeight] = useState<number | null>(null);
   const preLoadedImages = useRef(new Set<string>());
-  const { ref, inView } = useInView();
+  const { loadMoreRef, inView } = useInView();
   const { filters } = useFilters();
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isFetching } =
     useInfiniteQuery(getMoviesDiscoverOptions(filters));
-  const EXPANDED_CARD_WIDTH = 581.8;
-  const EXPANDED_CARD_HEIGHT = 400;
+
+  const is2Xl = useMediaQuery("(width>= 96rem)");
+  const isMd = useMediaQuery("(width>= 48rem)");
+  const isSm = useMediaQuery("(width>= 40rem)");
+  const filterKey = useMemo(() => JSON.stringify(filters), [filters]);
+
+  const expandedCardSize = useMemo(() => {
+    if (is2Xl) return ExpandedCardSizes["2xl"];
+    if (isMd) return ExpandedCardSizes.md;
+    if (isSm) return ExpandedCardSizes.sm;
+    return ExpandedCardSizes.base;
+  }, [is2Xl, isMd, isSm]);
+
+  useEffect(() => {
+    return () => {
+      if (timer.current) {
+        clearTimeout(timer.current);
+        timer.current = null;
+      }
+    };
+  }, []);
 
   useEffect(() => {
     if (timer.current) {
@@ -45,8 +77,8 @@ export const MoviesList = () => {
       timer.current = null;
     }
     setIsMovieHovered(null);
-    setIsAnimating(null);
-  }, [filters]);
+    setIsAnimatingKey(null);
+  }, [filterKey]);
 
   useEffect(() => {
     if (inView && hasNextPage && !isFetchingNextPage && !isFetching) {
@@ -54,19 +86,22 @@ export const MoviesList = () => {
     }
   }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage, isFetching]);
 
-  const preLoadImage = (src: string) => {
+  const preLoadImage = useCallback((src: string) => {
     if (preLoadedImages.current.has(src)) {
       return;
+    }
+    if (preLoadedImages.current.size > 80) {
+      preLoadedImages.current.clear();
     }
     const img = new Image();
     img.src = src;
     preLoadedImages.current.add(src);
-  };
+  }, []);
 
   const handleHovered = useCallback(
     (
-      e: React.MouseEvent<HTMLDivElement>,
-      movieId: number,
+      targetEl: HTMLDivElement,
+      cardKey: string,
       backdrop_path: string | null,
     ) => {
       if (timer?.current !== null) {
@@ -77,45 +112,47 @@ export const MoviesList = () => {
         preLoadImage(`https://image.tmdb.org/t/p/w780${backdrop_path}`);
       }
 
-      const gridRect = gridRef.current?.getBoundingClientRect();
-      const cardRect = e.currentTarget.getBoundingClientRect();
-      if (!gridRect) return;
-
-      const currentCardWidth = cardRect.width;
-      const currentCardHeight = cardRect.height;
-
-      const horizontalOffset = (EXPANDED_CARD_WIDTH - currentCardWidth) / 2;
-      const verticalOffset = (EXPANDED_CARD_HEIGHT - currentCardHeight) / 2;
-
-      const leftSpace = cardRect.left - gridRect.left >= horizontalOffset;
-      const rightSpace = gridRect.right - cardRect.right >= horizontalOffset;
-      const topSpace = cardRect.top - gridRect.top >= verticalOffset;
-      const bottomSpace = gridRect.bottom - cardRect.bottom >= verticalOffset;
-
-      const horizontal =
-        leftSpace && rightSpace ? "both" : !leftSpace ? "right" : "left";
-      const vertical =
-        topSpace && bottomSpace ? "both" : !topSpace ? "bottom" : "top";
-      const top =
-        vertical === "both"
-          ? -verticalOffset
-          : vertical === "bottom"
-            ? 0
-            : "auto";
-      const bottom = vertical === "top" ? 0 : "auto";
-      const left =
-        horizontal === "both"
-          ? -horizontalOffset
-          : horizontal === "left"
-            ? "auto"
-            : 0;
-      const right = horizontal === "left" ? 0 : "auto";
       timer.current = setTimeout(() => {
-        setIsMovieHovered({ movieId, top, bottom, left, right });
+        const gridRect = gridRef.current?.getBoundingClientRect();
+        const cardRect = targetEl.getBoundingClientRect();
+        if (!gridRect) return;
+
+        const currentCardWidth = cardRect.width;
+        const currentCardHeight = cardRect.height;
+
+        const horizontalOffset =
+          (expandedCardSize.width - currentCardWidth) / 2;
+        const verticalOffset =
+          (expandedCardSize.height - currentCardHeight) / 2;
+
+        const leftSpace = cardRect.left - gridRect.left >= horizontalOffset;
+        const rightSpace = gridRect.right - cardRect.right >= horizontalOffset;
+        const topSpace = cardRect.top - gridRect.top >= verticalOffset;
+        const bottomSpace = gridRect.bottom - cardRect.bottom >= verticalOffset;
+
+        const horizontal =
+          leftSpace && rightSpace ? "both" : !leftSpace ? "right" : "left";
+        const vertical =
+          topSpace && bottomSpace ? "both" : !topSpace ? "bottom" : "top";
+        const top =
+          vertical === "both"
+            ? -verticalOffset
+            : vertical === "bottom"
+              ? 0
+              : "auto";
+        const bottom = vertical === "top" ? 0 : "auto";
+        const left =
+          horizontal === "both"
+            ? -horizontalOffset
+            : horizontal === "left"
+              ? "auto"
+              : 0;
+        const right = horizontal === "left" ? 0 : "auto";
+        setIsMovieHovered({ cardKey, top, bottom, left, right });
         timer.current = null;
       }, 300);
     },
-    [],
+    [expandedCardSize, preLoadImage],
   );
 
   const handleMouseLeave = useCallback(() => {
@@ -125,54 +162,53 @@ export const MoviesList = () => {
     setIsMovieHovered(null);
   }, []);
 
-  const filterKey = JSON.stringify(filters);
-
   return (
     <div
       ref={gridRef}
-      className="grid auto-rows-fr gap-2 grid-cols-[repeat(auto-fit,minmax(145px,1fr))] sm:grid-cols-[repeat(auto-fit,minmax(158px,1fr))] md:grid-cols-[repeat(auto-fit,minmax(152px,1fr))] lg:grid-cols-[repeat(auto-fill,minmax(205px,1fr))] overflow-hidden"
+      className="grid auto-rows-fr gap-2 grid-cols-[repeat(auto-fit,minmax(145px,1fr))] sm:grid-cols-[repeat(auto-fit,minmax(158px,1fr))] md:grid-cols-[repeat(auto-fit,minmax(162px,1fr))] lg:grid-cols-[repeat(auto-fill,minmax(180px,1fr))]"
     >
       {data?.pages.map((page, pageIndex) =>
-        page.results.map((movie, movieIndex) => (
-          <div
-            ref={pageIndex === 0 && movieIndex === 0 ? cardRef : null}
-            className={`relative cursor-pointer ${isAnimating === movie.id + movieIndex || isMovieHovered?.movieId === movie.id + movieIndex ? "z-50" : ""} isolate overflow-visible`}
-            key={`${movie.id}-${movieIndex}`}
-            onMouseLeave={handleMouseLeave}
-          >
-            {" "}
-            {isMovieHovered?.movieId === movie.id + movieIndex ? (
-              <motion.div
-                className="flex absolute z-10 pointer-events-auto transform-gpu overflow-hidden"
-                layoutId={`expanding-${filterKey}-${movie.id}-${pageIndex}-${movieIndex}`}
-                key={`expanded-${filterKey}-${movie.id}-${pageIndex}-${movieIndex}`}
-                onLayoutAnimationStart={() =>
-                  setIsAnimating(movie.id + movieIndex)
-                }
-                onLayoutAnimationComplete={() => setIsAnimating(null)}
-                transition={{
-                  layout: { type: "spring", bounce: 0.6, visualDuration: 0.2 },
-                }}
-                style={{
-                  width: EXPANDED_CARD_WIDTH,
-                  height: EXPANDED_CARD_HEIGHT,
-                  borderRadius: 16,
-                  top: isMovieHovered.top,
-                  bottom: isMovieHovered.bottom,
-                  left: isMovieHovered.left,
-                  right: isMovieHovered.right,
-                }}
-              >
+        page.results.map((movie, movieIndex) => {
+          const cardKey = `${movie.id}-${pageIndex}-${movieIndex}`;
+          const isTargeted =
+            isAnimatingKey === cardKey || isMovieHovered?.cardKey === cardKey;
+          return canHover ? (
+            <motion.div
+              ref={pageIndex === 0 && movieIndex === 0 ? cardRef : null}
+              className={`relative cursor-pointer overflow-visible ${isTargeted ? "z-50" : "z-0"}`}
+              key={`cell-${cardKey}`}
+              onMouseLeave={handleMouseLeave}
+              initial={{
+                opacity: 0,
+              }}
+              whileInView={{
+                opacity: 1,
+              }}
+              viewport={{
+                once: true,
+                amount: 0.2,
+              }}
+              transition={{
+                delay: (movieIndex % 20) * 0.02,
+                duration: 0.25,
+              }}
+            >
+              {isMovieHovered?.cardKey === cardKey ? (
                 <motion.div
-                  className="w-full w-full"
-                  initial={{
-                    opacity: 0,
-                  }}
-                  animate={{
-                    opacity: 1,
-                  }}
-                  transition={{
-                    opacity: { duration: 0.16, ease: "easeOut" },
+                  className="flex absolute z-10 pointer-events-auto transform-gpu overflow-hidden"
+                  layoutId={`expanding-${filterKey}-${cardKey}`}
+                  key={`expanded-${filterKey}-${cardKey}`}
+                  onLayoutAnimationStart={() => setIsAnimatingKey(cardKey)}
+                  onLayoutAnimationComplete={() => setIsAnimatingKey(null)}
+                  transition={SHARED_LAYOUT_TRANSITION}
+                  style={{
+                    borderRadius: 16,
+                    width: expandedCardSize.width,
+                    height: expandedCardSize.height,
+                    top: isMovieHovered.top,
+                    bottom: isMovieHovered.bottom,
+                    left: isMovieHovered.left,
+                    right: isMovieHovered.right,
                   }}
                 >
                   <MovieCardExpanded
@@ -181,33 +217,17 @@ export const MoviesList = () => {
                     movieItem={movie}
                   />
                 </motion.div>
-              </motion.div>
-            ) : (
-              <motion.div
-                className="flex w-full h-full transform-gpu overflow-hidden"
-                layoutId={`expanding-${filterKey}-${movie.id}-${pageIndex}-${movieIndex}`}
-                transition={{
-                  layout: { type: "spring", bounce: 0.4, visualDuration: 0.2 },
-                }}
-                key={`collapsed-${filterKey}-${movie.id}-${pageIndex}-${movieIndex}`}
-                // custom={pageIndex * 20 + movieIndex <= 40}
-                onLayoutAnimationStart={() =>
-                  setIsAnimating(movie.id + movieIndex)
-                }
-                onLayoutAnimationComplete={() => setIsAnimating(null)}
-                onMouseEnter={(e) =>
-                  handleHovered(e, movie.id + movieIndex, movie.backdrop_path)
-                }
-              >
+              ) : (
                 <motion.div
-                  className="w-full h-full"
-                  initial={false}
-                  animate={{
-                    opacity: 1,
-                  }}
-                  transition={{
-                    opacity: { duration: 0.14, ease: "easeOut" },
-                  }}
+                  className="flex w-full h-full transform-gpu overflow-hidden"
+                  layoutId={`expanding-${filterKey}-${cardKey}`}
+                  transition={SHARED_LAYOUT_TRANSITION}
+                  key={`collapsed-${filterKey}-${cardKey}`}
+                  onLayoutAnimationStart={() => setIsAnimatingKey(cardKey)}
+                  onLayoutAnimationComplete={() => setIsAnimatingKey(null)}
+                  onMouseEnter={(e) =>
+                    handleHovered(e.currentTarget, cardKey, movie.backdrop_path)
+                  }
                 >
                   <MovieCard
                     movieItem={movie}
@@ -218,13 +238,23 @@ export const MoviesList = () => {
                     className="ring-0"
                   />
                 </motion.div>
-              </motion.div>
-            )}
-          </div>
-        )),
+              )}
+            </motion.div>
+          ) : (
+            <MovieCard
+              key={`static-${cardKey}`}
+              movieItem={movie}
+              titleClassName="font-bold"
+              yearClassName="font-medium"
+              hoverTransition={false}
+              eagerLoading={pageIndex * 20 + movieIndex <= 40}
+              className="ring-0"
+            />
+          );
+        }),
       )}
 
-      {hasNextPage && <MovieCardSkeleton ref={ref} />}
+      {hasNextPage && <MovieCardSkeleton ref={loadMoreRef} />}
       {hasNextPage &&
         [...Array(19)].map((_, index) => (
           <MovieCardSkeleton key={`skeleton-${index}`} />
