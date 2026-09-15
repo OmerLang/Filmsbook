@@ -172,7 +172,36 @@ export const MoviesList = () => {
           const cardKey = `${movie.id}-${pageIndex}-${movieIndex}`;
           const isTargeted =
             isAnimatingKey === cardKey || isMovieHovered?.cardKey === cardKey;
-          return canHover ? (
+          return !canHover ? (
+            <motion.div
+              className="relative cursor-pointer w-full h-full"
+              key={`static-${cardKey}`}
+              initial={{
+                opacity: 0,
+              }}
+              whileInView={{
+                opacity: 1,
+              }}
+              viewport={{
+                once: true,
+                amount: 0.1,
+              }}
+              transition={{
+                delay: (movieIndex % 20) * 0.01,
+                duration: 0.15,
+              }}
+            >
+              <MovieCard
+                key={`static-${cardKey}`}
+                movieItem={movie}
+                titleClassName="font-bold"
+                yearClassName="font-medium"
+                hoverTransition={false}
+                eagerLoading={pageIndex * 20 + movieIndex <= 40}
+                className="ring-0"
+              />
+            </motion.div>
+          ) : (
             <motion.div
               ref={pageIndex === 0 && movieIndex === 0 ? cardRef : null}
               className={`relative cursor-pointer overflow-visible ${isTargeted ? "z-50" : "z-0"}`}
@@ -186,7 +215,7 @@ export const MoviesList = () => {
               }}
               viewport={{
                 once: true,
-                amount: 0.2,
+                amount: 0.1,
               }}
               transition={{
                 delay: (movieIndex % 20) * 0.02,
@@ -240,16 +269,6 @@ export const MoviesList = () => {
                 </motion.div>
               )}
             </motion.div>
-          ) : (
-            <MovieCard
-              key={`static-${cardKey}`}
-              movieItem={movie}
-              titleClassName="font-bold"
-              yearClassName="font-medium"
-              hoverTransition={false}
-              eagerLoading={pageIndex * 20 + movieIndex <= 40}
-              className="ring-0"
-            />
           );
         }),
       )}
